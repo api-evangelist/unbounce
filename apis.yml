@@ -1,0 +1,75 @@
+aid: unbounce
+name: Unbounce
+description: >-
+  Unbounce is a landing page, popup, and sticky bar builder with conversion
+  rate optimization features including drag-and-drop design, A/B testing, AI
+  copywriting (Smart Copy), and AI traffic routing (Smart Traffic) for
+  marketers, agencies, SaaS, and ecommerce. The platform integrates with
+  HubSpot, Salesforce, Google Analytics, and other marketing platforms to
+  capture, qualify, and route leads. The Unbounce REST API provides programmatic
+  access to pages, leads, sub-accounts, and domains using OAuth 2.0
+  Authorization Code flow.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Landing Pages
+  - Conversion Rate Optimization
+  - Marketing
+  - A/B Testing
+  - Lead Generation
+  - Marketing Automation
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/unbounce/refs/heads/main/apis.yml
+created: '2026-05-11'
+modified: '2026-05-11'
+specificationVersion: '0.19'
+apis:
+  - aid: unbounce:rest-api
+    name: Unbounce REST API
+    description: >-
+      REST API for Unbounce providing programmatic access to accounts,
+      sub-accounts, domains, pages, page groups, and leads. Authentication
+      uses OAuth 2.0 Authorization Code flow with Bearer access tokens and a
+      custom Accept header indicating API version.
+    humanURL: https://developer.unbounce.com/getting_started/
+    baseURL: https://api.unbounce.com
+    tags:
+      - Landing Pages
+      - Leads
+      - Accounts
+      - Pages
+      - Domains
+    properties:
+      - type: Documentation
+        url: https://developer.unbounce.com/
+      - type: Getting Started
+        url: https://developer.unbounce.com/getting_started/
+      - type: Authentication
+        url: https://api.unbounce.com/doc/oauth
+      - type: API Reference
+        url: https://developer.unbounce.com/api_reference/
+
+common:
+  - type: Website
+    url: https://unbounce.com
+  - type: Developer Portal
+    url: https://developer.unbounce.com/
+  - type: Documentation
+    url: https://documentation.unbounce.com/
+  - type: API Documentation
+    url: https://developer.unbounce.com/
+  - type: Pricing
+    url: https://unbounce.com/pricing/
+  - type: Sign Up
+    url: https://unbounce.com/lp/free-trial/
+  - type: Login
+    url: https://app.unbounce.com/sign_in
+  - type: Blog
+    url: https://unbounce.com/blog/
+  - type: Support
+    url: https://documentation.unbounce.com/
+  - type: Community
+    url: https://community.unbounce.com/
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
