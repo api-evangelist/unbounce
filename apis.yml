@@ -42,11 +42,11 @@ apis:
     properties:
       - type: Documentation
         url: https://developer.unbounce.com/
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developer.unbounce.com/getting_started/
       - type: Authentication
         url: https://api.unbounce.com/doc/oauth
-      - type: API Reference
+      - type: APIReference
         url: https://developer.unbounce.com/api_reference/
 
 common:
@@ -60,7 +60,7 @@ common:
     url: https://developer.unbounce.com/
   - type: Pricing
     url: https://unbounce.com/pricing/
-  - type: Sign Up
+  - type: SignUp
     url: https://unbounce.com/lp/free-trial/
   - type: Login
     url: https://app.unbounce.com/sign_in
