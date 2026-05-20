@@ -50,6 +50,10 @@ apis:
         url: https://developer.unbounce.com/api_reference/
 
 common:
+  - type: GitHubOrganization
+    url: https://github.com/unbounce
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/unbounce
   - type: Website
     url: https://unbounce.com
   - type: Developer Portal
