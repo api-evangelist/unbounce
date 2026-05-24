@@ -1,0 +1,563 @@
+openapi: 3.1.0
+info:
+  title: Unbounce REST API
+  version: 0.4.0
+  summary: Programmatic access to Unbounce accounts, pages, leads, and domains.
+  description: |
+    The Unbounce REST API provides programmatic access to accounts,
+    sub-accounts, domains, pages, page groups, and leads. Authentication
+    uses an API key (available to all Unbounce pricing plans) or OAuth 2.0
+    Authorization Code flow (granted case-by-case). Clients send a custom
+    Accept header indicating the API version.
+
+    Endpoint surface and authentication confirmed against
+    https://developer.unbounce.com/api_reference/.
+  contact:
+    name: Unbounce Developers
+    url: https://developer.unbounce.com/
+  license:
+    name: Proprietary
+    url: https://unbounce.com/legal
+servers:
+  - url: https://api.unbounce.com
+    description: Unbounce REST API
+security:
+  - apiKeyAuth: []
+  - oauth2: []
+tags:
+  - name: Meta
+    description: API meta-information
+  - name: Accounts
+    description: Account and sub-account resources
+  - name: Domains
+    description: Domains attached to sub-accounts
+  - name: Pages
+    description: Landing pages and form fields
+  - name: PageGroups
+    description: Logical page groupings
+  - name: Leads
+    description: Lead submissions captured by pages
+  - name: Users
+    description: Users in the account
+paths:
+  /:
+    get:
+      tags: [Meta]
+      summary: Retrieve API meta-information
+      operationId: getApiMeta
+      responses:
+        '200':
+          description: API metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  current_user_url:
+                    type: string
+                  accounts_url:
+                    type: string
+                  api_version:
+                    type: string
+  /accounts:
+    get:
+      tags: [Accounts]
+      summary: List accounts
+      operationId: listAccounts
+      responses:
+        '200':
+          description: Account collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{account_id}:
+    get:
+      tags: [Accounts]
+      summary: Retrieve a single account
+      operationId: getAccount
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: Account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /accounts/{account_id}/sub_accounts:
+    get:
+      tags: [Accounts]
+      summary: List sub-accounts for an account
+      operationId: listSubAccountsForAccount
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: Sub-account collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sub_accounts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubAccount'
+  /accounts/{account_id}/pages:
+    get:
+      tags: [Pages]
+      summary: List pages for an account
+      operationId: listAccountPages
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: Page collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageCollection'
+  /sub_accounts/{sub_account_id}:
+    get:
+      tags: [Accounts]
+      summary: Retrieve a sub-account
+      operationId: getSubAccount
+      parameters:
+        - $ref: '#/components/parameters/SubAccountId'
+      responses:
+        '200':
+          description: Sub-account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubAccount'
+  /sub_accounts/{sub_account_id}/domains:
+    get:
+      tags: [Domains]
+      summary: List domains for a sub-account
+      operationId: listDomainsForSubAccount
+      parameters:
+        - $ref: '#/components/parameters/SubAccountId'
+      responses:
+        '200':
+          description: Domain collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  domains:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Domain'
+  /sub_accounts/{sub_account_id}/page_groups:
+    get:
+      tags: [PageGroups]
+      summary: List page groups for a sub-account
+      operationId: listPageGroupsForSubAccount
+      parameters:
+        - $ref: '#/components/parameters/SubAccountId'
+      responses:
+        '200':
+          description: Page group collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page_groups:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PageGroup'
+  /sub_accounts/{sub_account_id}/pages:
+    get:
+      tags: [Pages]
+      summary: List pages for a sub-account
+      operationId: listSubAccountPages
+      parameters:
+        - $ref: '#/components/parameters/SubAccountId'
+      responses:
+        '200':
+          description: Page collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageCollection'
+  /domains/{domain_id}:
+    get:
+      tags: [Domains]
+      summary: Retrieve a domain
+      operationId: getDomain
+      parameters:
+        - $ref: '#/components/parameters/DomainId'
+      responses:
+        '200':
+          description: Domain
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Domain'
+  /domains/{domain_id}/pages:
+    get:
+      tags: [Pages]
+      summary: List pages on a domain
+      operationId: listPagesForDomain
+      parameters:
+        - $ref: '#/components/parameters/DomainId'
+      responses:
+        '200':
+          description: Page collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageCollection'
+  /pages:
+    get:
+      tags: [Pages]
+      summary: List all accessible pages
+      operationId: listPages
+      responses:
+        '200':
+          description: Page collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageCollection'
+  /pages/{page_id}:
+    get:
+      tags: [Pages]
+      summary: Retrieve a page
+      operationId: getPage
+      parameters:
+        - $ref: '#/components/parameters/PageId'
+      responses:
+        '200':
+          description: Page
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+  /pages/{page_id}/form_fields:
+    get:
+      tags: [Pages]
+      summary: Retrieve form fields for a page
+      operationId: listFormFields
+      parameters:
+        - $ref: '#/components/parameters/PageId'
+      responses:
+        '200':
+          description: Form field collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  form_fields:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FormField'
+  /pages/{page_id}/leads:
+    get:
+      tags: [Leads]
+      summary: List leads for a page
+      operationId: listLeadsForPage
+      parameters:
+        - $ref: '#/components/parameters/PageId'
+      responses:
+        '200':
+          description: Lead collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  leads:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Lead'
+  /pages/{page_id}/leads/{lead_id}:
+    get:
+      tags: [Leads]
+      summary: Retrieve a lead from a page
+      operationId: getLeadForPage
+      parameters:
+        - $ref: '#/components/parameters/PageId'
+        - $ref: '#/components/parameters/LeadId'
+      responses:
+        '200':
+          description: Lead
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lead'
+  /pages/{page_id}/lead_deletion_request:
+    get:
+      tags: [Leads]
+      summary: List lead deletion requests for a page
+      operationId: listLeadDeletionRequests
+      parameters:
+        - $ref: '#/components/parameters/PageId'
+      responses:
+        '200':
+          description: Lead deletion request collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lead_deletion_requests:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LeadDeletionRequest'
+  /pages/{page_id}/lead_deletion_request/{lead_deletion_request_id}:
+    get:
+      tags: [Leads]
+      summary: Retrieve a single lead deletion request
+      operationId: getLeadDeletionRequest
+      parameters:
+        - $ref: '#/components/parameters/PageId'
+        - name: lead_deletion_request_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lead deletion request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadDeletionRequest'
+  /page_groups/{page_group_id}/pages:
+    get:
+      tags: [PageGroups]
+      summary: List pages in a page group
+      operationId: listPagesForPageGroup
+      parameters:
+        - name: page_group_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Page collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageCollection'
+  /leads/{lead_id}:
+    get:
+      tags: [Leads]
+      summary: Retrieve a lead
+      operationId: getLead
+      parameters:
+        - $ref: '#/components/parameters/LeadId'
+      responses:
+        '200':
+          description: Lead
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lead'
+  /users:
+    get:
+      tags: [Users]
+      summary: List users
+      operationId: listUsers
+      responses:
+        '200':
+          description: User collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth using the Unbounce API key as the username.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 Authorization Code (granted case-by-case by Unbounce).
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.unbounce.com/oauth/authorize
+          tokenUrl: https://api.unbounce.com/oauth/token
+          scopes:
+            read: Read access to account resources
+            write: Write access to account resources
+  parameters:
+    AccountId:
+      name: account_id
+      in: path
+      required: true
+      schema:
+        type: string
+    SubAccountId:
+      name: sub_account_id
+      in: path
+      required: true
+      schema:
+        type: string
+    DomainId:
+      name: domain_id
+      in: path
+      required: true
+      schema:
+        type: string
+    PageId:
+      name: page_id
+      in: path
+      required: true
+      schema:
+        type: string
+    LeadId:
+      name: lead_id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    AccountCollection:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+    SubAccount:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        account_id:
+          type: string
+    Domain:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        state:
+          type: string
+    Page:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        sub_account_id:
+          type: string
+        domain_id:
+          type: string
+        url:
+          type: string
+        state:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    PageCollection:
+      type: object
+      properties:
+        pages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Page'
+    PageGroup:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    FormField:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        required:
+          type: boolean
+    Lead:
+      type: object
+      properties:
+        id:
+          type: string
+        page_id:
+          type: string
+        form_data:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
+    LeadDeletionRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        state:
+          type: string
+        requested_at:
+          type: string
+          format: date-time
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
