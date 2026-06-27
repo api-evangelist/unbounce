@@ -56,7 +56,7 @@ common:
     url: https://www.linkedin.com/company/unbounce
   - type: Website
     url: https://unbounce.com
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://developer.unbounce.com/
   - type: Documentation
     url: https://documentation.unbounce.com/
@@ -64,7 +64,7 @@ common:
     url: https://developer.unbounce.com/
   - type: Pricing
     url: https://unbounce.com/pricing/
-  - type: SignUp
+  - type: Signup
     url: https://unbounce.com/lp/free-trial/
   - type: Login
     url: https://app.unbounce.com/sign_in
