@@ -50,6 +50,10 @@ apis:
         url: https://developer.unbounce.com/api_reference/
 
 common:
+  - type: Authentication
+    url: authentication/unbounce-authentication.yml
+  - type: OAuthScopes
+    url: scopes/unbounce-scopes.yml
   - type: GitHubOrganization
     url: https://github.com/unbounce
   - type: LinkedIn
