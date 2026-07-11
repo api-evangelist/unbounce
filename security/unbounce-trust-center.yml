@@ -1,0 +1,12 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://unbounce.com/security/
+url: https://unbounce.com/security/
+certifications:
+- PCI DSS
+evidence:
+- source: https://unbounce.com/security/
+  keywords:
+  - pci-dss
+  - compliance certification

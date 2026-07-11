@@ -50,6 +50,12 @@ apis:
         url: https://developer.unbounce.com/api_reference/
 
 common:
+  - type: TrustCenter
+    url: security/unbounce-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/unbounce-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/unbounce-domain-security.yml
   - type: Authentication
     url: authentication/unbounce-authentication.yml
   - type: OAuthScopes
