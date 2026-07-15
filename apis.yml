@@ -50,6 +50,8 @@ apis:
         url: https://developer.unbounce.com/api_reference/
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/unbounce-agentic-access.yml
   - type: TrustCenter
     url: security/unbounce-trust-center.yml
   - type: VulnerabilityDisclosure
