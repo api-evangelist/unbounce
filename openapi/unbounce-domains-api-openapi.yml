@@ -1,0 +1,111 @@
+openapi: 3.1.0
+info:
+  title: Unbounce REST Accounts Domains API
+  version: 0.4.0
+  summary: Programmatic access to Unbounce accounts, pages, leads, and domains.
+  description: 'The Unbounce REST API provides programmatic access to accounts,
+
+    sub-accounts, domains, pages, page groups, and leads. Authentication
+
+    uses an API key (available to all Unbounce pricing plans) or OAuth 2.0
+
+    Authorization Code flow (granted case-by-case). Clients send a custom
+
+    Accept header indicating the API version.
+
+
+    Endpoint surface and authentication confirmed against
+
+    https://developer.unbounce.com/api_reference/.
+
+    '
+  contact:
+    name: Unbounce Developers
+    url: https://developer.unbounce.com/
+  license:
+    name: Proprietary
+    url: https://unbounce.com/legal
+servers:
+- url: https://api.unbounce.com
+  description: Unbounce REST API
+security:
+- apiKeyAuth: []
+- oauth2: []
+tags:
+- name: Domains
+  description: Domains attached to sub-accounts
+paths:
+  /sub_accounts/{sub_account_id}/domains:
+    get:
+      tags:
+      - Domains
+      summary: List domains for a sub-account
+      operationId: listDomainsForSubAccount
+      parameters:
+      - $ref: '#/components/parameters/SubAccountId'
+      responses:
+        '200':
+          description: Domain collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  domains:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Domain'
+  /domains/{domain_id}:
+    get:
+      tags:
+      - Domains
+      summary: Retrieve a domain
+      operationId: getDomain
+      parameters:
+      - $ref: '#/components/parameters/DomainId'
+      responses:
+        '200':
+          description: Domain
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Domain'
+components:
+  parameters:
+    SubAccountId:
+      name: sub_account_id
+      in: path
+      required: true
+      schema:
+        type: string
+    DomainId:
+      name: domain_id
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    Domain:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        state:
+          type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth using the Unbounce API key as the username.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 Authorization Code (granted case-by-case by Unbounce).
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.unbounce.com/oauth/authorize
+          tokenUrl: https://api.unbounce.com/oauth/token
+          scopes:
+            read: Read access to account resources
+            write: Write access to account resources
