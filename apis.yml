@@ -10,7 +10,19 @@ description: >-
   access to pages, leads, sub-accounts, and domains using OAuth 2.0
   Authorization Code flow.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/unbounce.png
 tags:
   - Landing Pages
   - Conversion Rate Optimization
@@ -24,31 +36,99 @@ created: '2026-05-11'
 modified: '2026-05-11'
 specificationVersion: '0.19'
 apis:
-  - aid: unbounce:rest-api
-    name: Unbounce REST API
-    description: >-
-      REST API for Unbounce providing programmatic access to accounts,
-      sub-accounts, domains, pages, page groups, and leads. Authentication
-      uses OAuth 2.0 Authorization Code flow with Bearer access tokens and a
-      custom Accept header indicating API version.
-    humanURL: https://developer.unbounce.com/getting_started/
-    baseURL: https://api.unbounce.com
-    tags:
-      - Landing Pages
-      - Leads
-      - Accounts
-      - Pages
-      - Domains
-    properties:
-      - type: Documentation
-        url: https://developer.unbounce.com/
-      - type: GettingStarted
-        url: https://developer.unbounce.com/getting_started/
-      - type: Authentication
-        url: https://api.unbounce.com/doc/oauth
-      - type: APIReference
-        url: https://developer.unbounce.com/api_reference/
-
+- aid: unbounce:rest-api
+  name: Unbounce REST API
+  description: >-
+    REST API for Unbounce providing programmatic access to accounts, sub-accounts, domains, pages, page
+    groups, and leads. Authentication uses OAuth 2.0 Authorization Code flow with Bearer access tokens
+    and a custom Accept header indicating API version.
+  humanURL: https://developer.unbounce.com/getting_started/
+  baseURL: https://api.unbounce.com
+  tags:
+  - Landing Pages
+  - Leads
+  - Accounts
+  - Pages
+  - Domains
+  properties:
+  - type: Documentation
+    url: https://developer.unbounce.com/
+  - type: GettingStarted
+    url: https://developer.unbounce.com/getting_started/
+  - type: Authentication
+    url: https://api.unbounce.com/doc/oauth
+  - type: APIReference
+    url: https://developer.unbounce.com/api_reference/
+- aid: unbounce:unbounce-accounts-api
+  name: Unbounce Accounts API
+  description: Account and sub-account resources
+  humanURL: https://developer.unbounce.com/getting_started/
+  baseURL: https://api.unbounce.com
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/unbounce-accounts-api-openapi.yml
+- aid: unbounce:unbounce-domains-api
+  name: Unbounce Domains API
+  description: Domains attached to sub-accounts
+  humanURL: https://developer.unbounce.com/getting_started/
+  baseURL: https://api.unbounce.com
+  tags:
+  - Domains
+  properties:
+  - type: OpenAPI
+    url: openapi/unbounce-domains-api-openapi.yml
+- aid: unbounce:unbounce-leads-api
+  name: Unbounce Leads API
+  description: Lead submissions captured by pages
+  humanURL: https://developer.unbounce.com/getting_started/
+  baseURL: https://api.unbounce.com
+  tags:
+  - Leads
+  properties:
+  - type: OpenAPI
+    url: openapi/unbounce-leads-api-openapi.yml
+- aid: unbounce:unbounce-meta-api
+  name: Unbounce Meta API
+  description: API meta-information
+  humanURL: https://developer.unbounce.com/getting_started/
+  baseURL: https://api.unbounce.com
+  tags:
+  - Meta
+  properties:
+  - type: OpenAPI
+    url: openapi/unbounce-meta-api-openapi.yml
+- aid: unbounce:unbounce-pagegroups-api
+  name: Unbounce PageGroups API
+  description: Logical page groupings
+  humanURL: https://developer.unbounce.com/getting_started/
+  baseURL: https://api.unbounce.com
+  tags:
+  - PageGroups
+  properties:
+  - type: OpenAPI
+    url: openapi/unbounce-pagegroups-api-openapi.yml
+- aid: unbounce:unbounce-pages-api
+  name: Unbounce Pages API
+  description: Landing pages and form fields
+  humanURL: https://developer.unbounce.com/getting_started/
+  baseURL: https://api.unbounce.com
+  tags:
+  - Pages
+  properties:
+  - type: OpenAPI
+    url: openapi/unbounce-pages-api-openapi.yml
+- aid: unbounce:unbounce-users-api
+  name: Unbounce Users API
+  description: Users in the account
+  humanURL: https://developer.unbounce.com/getting_started/
+  baseURL: https://api.unbounce.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/unbounce-users-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/unbounce-agentic-access.yml
