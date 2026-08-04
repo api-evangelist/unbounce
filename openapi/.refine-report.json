@@ -1,0 +1,26 @@
+{
+  "provider": "unbounce",
+  "sources": [
+    "unbounce-accounts-api-openapi.yml",
+    "unbounce-domains-api-openapi.yml",
+    "unbounce-leads-api-openapi.yml",
+    "unbounce-meta-api-openapi.yml",
+    "unbounce-pagegroups-api-openapi.yml",
+    "unbounce-pages-api-openapi.yml",
+    "unbounce-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "unbounce-accounts-api-openapi.yml",
+    "unbounce-domains-api-openapi.yml",
+    "unbounce-leads-api-openapi.yml",
+    "unbounce-meta-api-openapi.yml",
+    "unbounce-pagegroups-api-openapi.yml",
+    "unbounce-pages-api-openapi.yml",
+    "unbounce-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
