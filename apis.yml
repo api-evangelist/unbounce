@@ -7,21 +7,33 @@ description: >-
   marketers, agencies, SaaS, and ecommerce. The platform integrates with
   HubSpot, Salesforce, Google Analytics, and other marketing platforms to
   capture, qualify, and route leads. The Unbounce REST API provides programmatic
-  access to pages, leads, sub-accounts, and domains using OAuth 2.0
-  Authorization Code flow.
+  access to pages, leads, sub-accounts, and domains using an API key over HTTP Basic
+  or OAuth 2.0 Authorization Code, described by a published RAML 0.8 definition. Unbounce
+  also operates an official hosted Model Context Protocol server at mcp.unbounce.com with
+  37 tools — the only public write surface for pages, variants, publishing and traffic —
+  plus three Agent Skills shipped in its own agent-plugin marketplace.
 type: Index
 accessModel:
-  pricing: unknown
-  onboarding: self-serve
-  trial: false
-  try_now: false
+  pricing: published
+  onboarding: request-required
+  trial: true
+  trial_days: 14
+  try_now: true
   public: false
-  label: Self-serve signup
-  confidence: medium
+  label: Published pricing, API access on request
+  confidence: high
   source:
-  - authentication
-  generated: '2026-07-22'
-  method: derived
+  - https://unbounce.com/pricing/
+  - https://developer.unbounce.com/getting_started/
+  - plans/unbounce-plans-pricing.yml
+  note: >-
+    Signing up for Unbounce is self-serve with a 14-day free trial, but API access is not:
+    an API Access form must be approved by support before keys can be created, and OAuth
+    client credentials are granted case-by-case. The MCP server is the one surface a user
+    can authorize themselves. try_now refers to the RAML API Console, which runs against
+    production data.
+  generated: '2026-08-13'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/unbounce.png
 tags:
   - Landing Pages
@@ -33,7 +45,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/unbounce/refs/heads/main/apis.yml
 created: '2026-05-11'
-modified: '2026-05-11'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
 - aid: unbounce:rest-api
@@ -59,6 +71,33 @@ apis:
     url: https://api.unbounce.com/doc/oauth
   - type: APIReference
     url: https://developer.unbounce.com/api_reference/
+- aid: unbounce:mcp-server
+  name: Unbounce MCP Server
+  description: >-
+    Official hosted Model Context Protocol server for Unbounce. Exposes 37 tools that
+    create, edit, publish, A/B-test and report on Unbounce landing pages and variants
+    directly from an AI assistant. Authorization is OAuth 2.0 with PKCE and dynamic client
+    registration; access is included on every Unbounce pricing plan. This is the only
+    public write surface for pages and variants — the REST API is read-only apart from
+    lead creation.
+  humanURL: https://unbounce.com/product/mcp-server/
+  baseURL: https://mcp.unbounce.com/mcp
+  tags:
+  - MCP
+  - Agents
+  - Landing Pages
+  - Variants
+  properties:
+  - type: MCPServer
+    url: mcp/unbounce-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/unbounce-tool-crosswalk.yml
+  - type: Documentation
+    url: https://unbounce.github.io/agent-plugins/unbounce-mcp/
+  - type: SourceCode
+    url: https://github.com/unbounce/agent-plugins
+  - type: Authentication
+    url: authentication/unbounce-authentication.yml
 - aid: unbounce:unbounce-accounts-api
   name: Unbounce Accounts API
   description: Account and sub-account resources
@@ -69,6 +108,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/unbounce-accounts-api-openapi.yml
+  - type: Overlay
+    url: overlays/unbounce-accounts-api-overlay.yaml
 - aid: unbounce:unbounce-domains-api
   name: Unbounce Domains API
   description: Domains attached to sub-accounts
@@ -79,6 +120,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/unbounce-domains-api-openapi.yml
+  - type: Overlay
+    url: overlays/unbounce-domains-api-overlay.yaml
 - aid: unbounce:unbounce-leads-api
   name: Unbounce Leads API
   description: Lead submissions captured by pages
@@ -89,6 +132,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/unbounce-leads-api-openapi.yml
+  - type: Overlay
+    url: overlays/unbounce-leads-api-overlay.yaml
 - aid: unbounce:unbounce-meta-api
   name: Unbounce Meta API
   description: API meta-information
@@ -99,6 +144,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/unbounce-meta-api-openapi.yml
+  - type: Overlay
+    url: overlays/unbounce-meta-api-overlay.yaml
 - aid: unbounce:unbounce-pagegroups-api
   name: Unbounce PageGroups API
   description: Logical page groupings
@@ -109,6 +156,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/unbounce-pagegroups-api-openapi.yml
+  - type: Overlay
+    url: overlays/unbounce-pagegroups-api-overlay.yaml
 - aid: unbounce:unbounce-pages-api
   name: Unbounce Pages API
   description: Landing pages and form fields
@@ -119,6 +168,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/unbounce-pages-api-openapi.yml
+  - type: Overlay
+    url: overlays/unbounce-pages-api-overlay.yaml
 - aid: unbounce:unbounce-users-api
   name: Unbounce Users API
   description: Users in the account
@@ -129,6 +180,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/unbounce-users-api-openapi.yml
+  - type: Overlay
+    url: overlays/unbounce-users-api-overlay.yaml
 common:
   - type: AgenticAccess
     url: agentic-access/unbounce-agentic-access.yml
@@ -166,6 +219,65 @@ common:
     url: https://documentation.unbounce.com/
   - type: Community
     url: https://community.unbounce.com/
+  - type: RAML
+    url: raml/unbounce-api-v0.4.raml
+  - type: JSONSchema
+    url: json-schema/_index.yml
+  - type: Examples
+    url: examples/_index.yml
+  - type: MCPServer
+    url: mcp/unbounce-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/unbounce-tool-crosswalk.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/unbounce-llms.txt
+  - type: WellKnown
+    url: well-known/unbounce-well-known.yml
+  - type: Packages
+    url: packages/unbounce-packages.yml
+  - type: Conventions
+    url: conventions/unbounce-conventions.yml
+  - type: ErrorCatalog
+    url: errors/unbounce-problem-types.yml
+  - type: Conformance
+    url: conformance/unbounce-conformance.yml
+  - type: Compliance
+    url: https://unbounce.com/security/
+  - type: Security
+    url: https://unbounce.com/security/
+  - type: Lifecycle
+    url: lifecycle/unbounce-lifecycle.yml
+  - type: StatusPage
+    url: https://status.unbounce.com
+  - type: ChangeLog
+    url: changelog/unbounce-changelog.yml
+  - type: DataModel
+    url: data-model/unbounce-data-model.yml
+  - type: Webhooks
+    url: asyncapi/unbounce-webhooks.yml
+  - type: Plans
+    url: plans/unbounce-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/unbounce-rate-limits.yml
+  - type: Console
+    url: https://developer.unbounce.com/console.html
+  - type: GettingStarted
+    url: https://developer.unbounce.com/getting_started/
+  - type: APIReference
+    url: https://developer.unbounce.com/api_reference/
+  - type: SignUp
+    url: https://unbounce.com/lp/free-trial/
+  - type: TermsOfService
+    url: https://unbounce.com/terms-of-service/
+  - type: PrivacyPolicy
+    url: https://unbounce.com/privacy/
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 26
+  pass: local-v1
