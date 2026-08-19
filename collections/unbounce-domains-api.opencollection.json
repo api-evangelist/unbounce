@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Unbounce REST Accounts Domains API",
+    "version": "0.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List domains for a sub-account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/sub_accounts/:sub_account_id/domains",
+            "params": [
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List domains for a sub-account"
+        },
+        {
+          "info": {
+            "name": "Retrieve a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/domains/:domain_id",
+            "params": [
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a domain"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

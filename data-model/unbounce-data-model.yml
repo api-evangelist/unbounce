@@ -1,0 +1,206 @@
+generated: '2026-08-13'
+method: derived
+source: json-schema/*.json + raml/unbounce-api-v0.4.raml + openapi/*.yml
+note: >-
+  Derived from Unbounce's own published draft-04 JSON Schemas and the RAML resource tree.
+  Unbounce's REST API is hypermedia-shaped: relationships are expressed as named URLs
+  under each entity's `metadata.related` object rather than as foreign-key fields, so the
+  edges below are read from those link names and from the URI nesting, not invented.
+  "Client" is the product-facing name for what the API calls a sub-account.
+id_conventions:
+  format: string
+  note: >-
+    v0.4 changed every ID from integer to string. Accounts and sub-accounts carry both a
+    numeric-looking string `id` and a `uuid`; pages are identified by a 36-character UUID
+    (`page_id`, formerly `page_uuid`). No typed prefixes.
+  fields:
+  - entity: account
+    id: id
+    alt: uuid
+  - entity: sub_account
+    id: id
+  - entity: page
+    id: id
+    note: 36-character UUID
+  - entity: domain
+    id: id
+  - entity: lead
+    id: id
+entities:
+- name: api_root
+  schema: json-schema/unbounce-api_root.json
+  path: /
+  description: >-
+    Discovery document naming the main API entry points, supported formats and
+    specification locations (declared type "raml").
+  relationships:
+  - type: has_many
+    target: account
+    via: related.accounts
+  - type: has_many
+    target: page
+    via: related.pages
+- name: account
+  schema: json-schema/unbounce-account.json
+  collection_schema: json-schema/unbounce-accounts.json
+  path: /accounts/{account_id}
+  example: examples/unbounce-accounts-account_get.json
+  fields: [created_at, id, name, state, uuid, metadata]
+  states: [active, suspended]
+  description: The top of the tree; an API key reaches every client owned by its primary account.
+  relationships:
+  - type: has_many
+    target: sub_account
+    via: metadata.related.sub_accounts
+  - type: has_many
+    target: page
+    via: metadata.related.pages
+  - type: has_many
+    target: account
+    via: metadata.related.accounts
+- name: sub_account
+  schema: json-schema/unbounce-sub_account.json
+  collection_schema: json-schema/unbounce-sub_accounts.json
+  path: /sub_accounts/{sub_account_id}
+  example: examples/unbounce-sub_accounts-sub_account_get.json
+  aka: client
+  description: >-
+    A project or client workspace. Owns its own pages, domains and page groups; the unit
+    most MCP tools address as `client_uuid`.
+  relationships:
+  - type: belongs_to
+    target: account
+    via: 'URI nesting /accounts/{account_id}/sub_accounts'
+  - type: has_many
+    target: domain
+    via: metadata.related.domains
+  - type: has_many
+    target: page_group
+    via: metadata.related.page_groups
+  - type: has_many
+    target: page
+    via: metadata.related.pages
+- name: domain
+  schema: json-schema/unbounce-domain.json
+  collection_schema: json-schema/unbounce-domains.json
+  path: /domains/{domain_id}
+  example: examples/unbounce-domains-domain_get.json
+  description: A custom domain registered with Unbounce that pages publish to.
+  relationships:
+  - type: belongs_to
+    target: sub_account
+    via: '/sub_accounts/{sub_account_id}/domains'
+  - type: has_many
+    target: page
+    via: '/domains/{domain_id}/pages'
+- name: page_group
+  schema: json-schema/unbounce-page_groups.json
+  path: /sub_accounts/{sub_account_id}/page_groups
+  example: examples/unbounce-sub_accounts-page_groups_get.json
+  description: An optional named folder grouping pages within a sub-account.
+  relationships:
+  - type: belongs_to
+    target: sub_account
+    via: URI nesting
+  - type: has_many
+    target: page
+    via: '/page_groups/{page_group_id}/pages'
+- name: page
+  schema: json-schema/unbounce-page.json
+  collection_schema: json-schema/unbounce-pages.json
+  path: /pages/{page_id}
+  example: examples/unbounce-pages-page_get.json
+  description: >-
+    A landing page (also popups and sticky bars). Reachable four ways — top-level /pages
+    for OAuth principals, and the legacy account, sub-account, domain and page-group
+    sub-collections. Only /pages exposes the `role` filter and pages shared from other
+    clients.
+  query_dimensions: [with_stats, role]
+  relationships:
+  - type: belongs_to
+    target: sub_account
+    via: URI nesting
+  - type: belongs_to
+    target: domain
+    via: '/domains/{domain_id}/pages'
+  - type: belongs_to
+    target: page_group
+    via: '/page_groups/{page_group_id}/pages'
+  - type: has_many
+    target: form_field
+    via: '/pages/{page_id}/form_fields'
+  - type: has_many
+    target: lead
+    via: '/pages/{page_id}/leads'
+  - type: has_many
+    target: variant
+    via: MCP only — no REST variant resource
+- name: form_field
+  schema: json-schema/unbounce-form_fields.json
+  path: /pages/{page_id}/form_fields
+  example: examples/unbounce-pages-form_fields_get.json
+  description: >-
+    The form fields across all variants of a page; include_sub_pages widens the query to
+    sub-pages. Their IDs are the keys that appear in the Form Submit Webhook payload.
+  relationships:
+  - type: belongs_to
+    target: page
+    via: URI nesting
+- name: lead
+  schema: json-schema/unbounce-lead.json
+  collection_schema: json-schema/unbounce-leads.json
+  create_schema: json-schema/unbounce-new_lead.json
+  path: /pages/{page_id}/leads/{lead_id}
+  example: examples/unbounce-leads-lead_get.json
+  description: >-
+    A form submission captured by a page, popup or sticky bar. The only writable REST
+    resource — POST /pages/{page_id}/leads creates one, tagged extra_data.created_by=api
+    to distinguish it from a webapp submission.
+  relationships:
+  - type: belongs_to
+    target: page
+    via: URI nesting
+  - type: has_many
+    target: form_submission
+    via: embedded form_submission object
+- name: lead_deletion_request
+  schema: json-schema/unbounce-lead_deletion_request.json
+  query_schema: json-schema/unbounce-lead_deletion_request_query.json
+  path: /pages/{page_id}/lead_deletion_request/{lead_deletion_request_id}
+  example: examples/unbounce-lead_deletion_request-lead_deletion_request_get.json
+  description: >-
+    A tracked request to erase lead data — the API's GDPR/CCPA erasure surface, and the
+    only privacy-operations resource Unbounce exposes.
+  relationships:
+  - type: belongs_to
+    target: page
+    via: URI nesting
+- name: user
+  schema: json-schema/unbounce-user.json
+  path: /users
+  example: examples/unbounce-users-self_get.json
+  description: The authenticated user; the REST twin of the MCP `whoami` tool.
+- name: error
+  schema: json-schema/unbounce-error_v3.1.json
+  description: >-
+    The shared error body. Its schema is an allOf $ref into definitions_v3.1.json#/error,
+    which Unbounce does not publish, so the schema does not resolve standalone.
+graph_edges:
+  account -> sub_account: has_many
+  account -> page: has_many (legacy)
+  sub_account -> domain: has_many
+  sub_account -> page_group: has_many
+  sub_account -> page: has_many
+  domain -> page: has_many
+  page_group -> page: has_many
+  page -> form_field: has_many
+  page -> lead: has_many
+  page -> lead_deletion_request: has_many
+  page -> variant: has_many (MCP surface only)
+divergence:
+  note: >-
+    The MCP surface adds two entities the REST model has no representation for — `variant`
+    (the A/B unit that carries the actual HTML/CSS/JS) and `asset` (the client image and
+    file library) — plus `plan`/`subscription` on the account. Conversely, leads and
+    lead-deletion requests exist only in REST. Neither surface is a superset; see
+    mcp/unbounce-tool-crosswalk.yml.

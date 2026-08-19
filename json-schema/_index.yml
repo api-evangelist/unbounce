@@ -1,0 +1,63 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.unbounce.com/raml/v0.4/api.raml (schema/*.json includes)
+note: JSON Schema draft-04 documents published by Unbounce and referenced by its own RAML 0.8 definition.
+  Saved verbatim; filenames prefixed with the provider slug, contents unmodified.
+schemas:
+- file: unbounce-account.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/account.json
+  description: Representation of a single account entity.
+- file: unbounce-accounts.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/accounts.json
+  description: Collection of account entities.
+- file: unbounce-api_root.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/api_root.json
+  description: Describes the main API entry points, supported formats and specification locations.
+- file: unbounce-domain.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/domain.json
+  description: Representation of a single custom domain entity.
+- file: unbounce-domains.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/domains.json
+  description: Collection of domain entities.
+- file: unbounce-error_v3.1.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/common/error_v3.1.json
+  description: A generic error (standalone version of definitions#error)
+- file: unbounce-form_fields.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/form_fields.json
+  description: Collection of form fields entities.
+- file: unbounce-lead.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/lead.json
+  description: Representation of a single lead entity.
+- file: unbounce-lead_deletion_request.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/lead_deletion_request.json
+  description: Representation of a lead deletion request.
+- file: unbounce-lead_deletion_request_query.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/lead_deletion_request_query.json
+  description: Representation of a lead deletion request. Perform and create lead data deletion request.
+    When all_leads is set and lead-ids are not provided, delete all leads of the page. When from ~ to
+    datetime range is provided, only delete leads within the range.
+- file: unbounce-leads.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/leads.json
+  description: Collection of leads entities.
+- file: unbounce-new_lead.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/new_lead.json
+  description: Representation of a new lead
+- file: unbounce-page.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/page.json
+  description: Representation of a single page entity, which includes page statistics such as which variant
+    is the winner or loser.
+- file: unbounce-page_groups.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/page_groups.json
+  description: Collection of form fields entities.
+- file: unbounce-pages.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/pages.json
+  description: Collection of page entities.
+- file: unbounce-sub_account.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/sub_account.json
+  description: Representation of a sub-account entity (API sub-accounts are Unbounce Clients).
+- file: unbounce-sub_accounts.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/sub_accounts.json
+  description: Collection of sub-account entities.
+- file: unbounce-user.json
+  source: https://developer.unbounce.com/raml/v0.4/schema/user.json
+  description: User entity include accounts and sub-account data.

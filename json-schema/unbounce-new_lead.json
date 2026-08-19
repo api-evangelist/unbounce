@@ -1,0 +1,36 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "description" : "Representation of a new lead",
+  "type" : "object",
+  "additionalProperties" : false,
+  "required" : [ "form_submission" ],
+  "properties" : {
+    "conversion" : {
+      "description" : "Whether this lead should be marked as having converted or not.",
+      "type" : "boolean"
+    },
+    "form_submission" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "required" : [ "variant_id", "submitter_ip", "form_data" ],
+      "properties" : {
+        "variant_id" : {
+          "description" : "The published page variant Id.",
+          "type" : "string"
+        },
+        "submitter_ip" : {
+          "description" : "Originating IP address of the lead.",
+          "type" : "string"
+        },
+        "form_data" : {
+          "description" : "Form fields and form values representing a lead.",
+          "type" : "object"
+        }
+      }
+    },
+    "visitor_id" : {
+      "description" : "Unbounce's internal visitor ID for tracking the lead.",
+      "type" : "string"
+    }
+  }
+}

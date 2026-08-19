@@ -1,0 +1,70 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "description" : "Representation of a single account entity.",
+  "type" : "object",
+  "additionalProperties" : false,
+  "required" : [ "created_at", "id", "metadata", "name", "state" ],
+  "properties" : {
+    "created_at" : {
+      "title" : "Generic Date",
+      "description" : "RFC 5322, section 3.4.1, compliant date, which means formatted with: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "metadata" : {
+      "type" : "object",
+      "allOf" : [ {
+        "title" : "Entity Metadata",
+        "type" : "object",
+        "required" : [ "location", "documentation" ],
+        "properties" : {
+          "location" : {
+            "type" : "string",
+            "format" : "uri"
+          },
+          "documentation" : {
+            "type" : "string",
+            "format" : "uri"
+          },
+          "related" : {
+            "type" : "object"
+          }
+        }
+      }, {
+        "type" : "object",
+        "required" : [ "related" ],
+        "properties" : {
+          "related" : {
+            "type" : "object",
+            "additionalProperties" : false,
+            "required" : [ "pages", "accounts", "sub_accounts" ],
+            "properties" : {
+              "pages" : {
+                "type" : "string",
+                "format" : "uri"
+              },
+              "accounts" : {
+                "type" : "string",
+                "format" : "uri"
+              },
+              "sub_accounts" : {
+                "type" : "string",
+                "format" : "uri"
+              }
+            }
+          }
+        }
+      } ]
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "state" : {
+      "type" : "string",
+      "enum" : [ "active", "suspended" ]
+    }
+  }
+}

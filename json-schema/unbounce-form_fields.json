@@ -1,0 +1,85 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "description" : "Collection of form fields entities.",
+  "type" : "object",
+  "additionalProperties" : false,
+  "required" : [ "metadata" ],
+  "properties" : {
+    "form_fields" : {
+      "type" : "array",
+      "minItems" : 0,
+      "uniqueItems" : true,
+      "items" : {
+        "$schema" : "http://json-schema.org/draft-04/schema#",
+        "description" : "Representation of a single form field entity.",
+        "type" : "object",
+        "additionalProperties" : true,
+        "required" : [ "id", "name", "type" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string",
+            "enum" : [ "text", "textarea", "checkbox", "radio", "hidden" ]
+          },
+          "options" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "validations" : {
+            "type" : "object",
+            "additionalProperties" : false,
+            "required" : [ "required" ],
+            "properties" : {
+              "required" : {
+                "type" : "boolean"
+              },
+              "email" : {
+                "type" : "boolean"
+              },
+              "phone" : {
+                "type" : "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata" : {
+      "title" : "Collection Metadata",
+      "type" : "object",
+      "allOf" : [ {
+        "title" : "Entity Metadata",
+        "type" : "object",
+        "required" : [ "location", "documentation" ],
+        "properties" : {
+          "location" : {
+            "type" : "string",
+            "format" : "uri"
+          },
+          "documentation" : {
+            "type" : "string",
+            "format" : "uri"
+          },
+          "related" : {
+            "type" : "object"
+          }
+        }
+      }, {
+        "type" : "object",
+        "required" : [ "count" ],
+        "properties" : {
+          "count" : {
+            "type" : "integer"
+          }
+        }
+      } ]
+    }
+  }
+}

@@ -1,0 +1,63 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.unbounce.com/getting_started/#Versions
+versioning:
+  scheme: media-type (vendor Accept header)
+  header: Accept
+  media_type: application/vnd.unbounce.api.v0.4+json
+  current: '0.4'
+  docs: https://developer.unbounce.com/getting_started/#Versions
+  optional: true
+  note: >-
+    Passing the version header is optional; 0.4 is served by default and is the only
+    value the RAML `versioned` trait enumerates.
+  maturity: >-
+    Unbounce's own developer portal still describes v0.4 as "A new version of the
+    Unbounce API (Beta)" — the same wording carried in the RAML documentation block.
+versions:
+- version: '0.4'
+  status: current
+  spec: raml/unbounce-api-v0.4.raml
+  spec_url: https://developer.unbounce.com/raml/v0.4/api.raml
+- version: '0.3'
+  status: retired
+  retired: '2018-05'
+  detail: >-
+    "As of May 2018, the 0.3 version of our API is no longer accessible." Unbounce
+    published the full 0.3 -> 0.4 breaking-change list rather than a general policy.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    Unbounce publishes NO deprecation policy, no notice window, and supports neither the
+    RFC 8594 Sunset header nor the Deprecation header. The only evidence of lifecycle
+    practice is the retrospective 0.3 retirement notice above, which is a record of one
+    removal, not a policy — so no Deprecation pointer is emitted.
+deprecated_operations: []
+sla:
+  url: null
+  uptime_target: null
+  published_claim: >-
+    "Our systems have facilitated over half a billion conversions for our customers while
+    maintaining over 99% uptime" (https://unbounce.com/security/) — a marketing claim, not
+    a contractual SLA. Concierge plans advertise "enhanced service-level options" without
+    publishing terms.
+status_page:
+  url: https://status.unbounce.com
+  provider: Atlassian Statuspage
+  api: https://status.unbounce.com/api/v2/summary.json
+  probed: '2026-08-13'
+  http_status: 200
+  components_total: 39
+  api_component: Partner API
+  note: >-
+    Machine-readable Statuspage v2 API. Component coverage includes "Partner API",
+    "Web Application (app.unbounce.com)", "Page Servers", "Pop Ups and Sticky Bars",
+    "Smart Copy App" and "Third-Party Integrations". There is no component named for the
+    public REST API or the MCP server, so neither has a first-class status signal.
+support:
+  channels:
+  - {type: HelpCenter, url: https://documentation.unbounce.com/}
+  - {type: Community, url: https://community.unbounce.com/}
+  - {type: Email, detail: security and support tickets via the customer portal}

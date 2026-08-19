@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Unbounce REST Accounts Leads API",
+    "version": "0.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Leads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List leads for a page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/pages/:page_id/leads",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List leads for a page"
+        },
+        {
+          "info": {
+            "name": "Retrieve a lead from a page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/pages/:page_id/leads/:lead_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "lead_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a lead from a page"
+        },
+        {
+          "info": {
+            "name": "List lead deletion requests for a page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/pages/:page_id/lead_deletion_request",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List lead deletion requests for a page"
+        },
+        {
+          "info": {
+            "name": "Retrieve a single lead deletion request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/pages/:page_id/lead_deletion_request/:lead_deletion_request_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "lead_deletion_request_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a single lead deletion request"
+        },
+        {
+          "info": {
+            "name": "Retrieve a lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/leads/:lead_id",
+            "params": [
+              {
+                "name": "lead_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a lead"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

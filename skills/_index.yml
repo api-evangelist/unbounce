@@ -1,0 +1,63 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/unbounce/agent-plugins/tree/main/plugins/unbounce-mcp/skills
+note: >-
+  Provider-published Agent Skills, saved verbatim from Unbounce's own agent-plugin
+  marketplace repository (unbounce/agent-plugins, MIT). These ship inside the
+  `unbounce-mcp` plugin for Claude Code / Cowork and ChatGPT / Codex and are
+  grounded in the Unbounce MCP tool set, not in the REST API. Nothing here was
+  authored by API Evangelist.
+plugin:
+  name: unbounce-mcp
+  version: 1.0.320
+  marketplace: unbounce/agent-plugins
+  install: /plugin install unbounce-mcp@unbounce
+  license: MIT
+skills:
+- file: unbounce-mcp-page-authoring.md
+  name: mcp-page-authoring
+  description: >-
+    Best practices for authoring an Unbounce landing page through Unbounce MCP —
+    writing the HTML/CSS/JS body for create_page_from_html, create_variant_from_html
+    and update_variant_from_html, including Dynamic Text Replacement.
+  api: mcp/unbounce-mcp.yml
+  operations:
+  - create_page_from_html
+  - create_variant_from_html
+  - update_variant_from_html
+  - get_variant
+  - upload
+  source: https://github.com/unbounce/agent-plugins/blob/main/plugins/unbounce-mcp/skills/mcp-page-authoring/SKILL.md
+- file: unbounce-mcp-modernize.md
+  name: mcp-modernize
+  description: >-
+    Rewrite an imported (absolutely-positioned) Unbounce page variant as clean
+    responsive HTML through Unbounce MCP. Replication-faithful layout rewrite,
+    never a redesign.
+  api: mcp/unbounce-mcp.yml
+  operations:
+  - list_client_pages
+  - list_page_variants
+  - create_variant_from_existing_variant
+  - get_variant
+  - download
+  - download_inband
+  - update_variant_from_html
+  - get_layout_hints
+  rules:
+  - rules/unbounce-mcp-modernize-color.md
+  - rules/unbounce-mcp-modernize-failure-catalog.md
+  - rules/unbounce-mcp-modernize-layout.md
+  - rules/unbounce-mcp-modernize-replication.md
+  - rules/unbounce-mcp-modernize-verification.md
+  source: https://github.com/unbounce/agent-plugins/blob/main/plugins/unbounce-mcp/skills/mcp-modernize/SKILL.md
+- file: unbounce-mcp-feedback.md
+  name: mcp-feedback
+  description: >-
+    Record a user's feedback about the Unbounce MCP tools — bug, praise, feature
+    request, confusion — via the submit_feedback tool, with secret redaction and an
+    explicit consent step.
+  api: mcp/unbounce-mcp.yml
+  operations:
+  - submit_feedback
+  source: https://github.com/unbounce/agent-plugins/blob/main/plugins/unbounce-mcp/skills/mcp-feedback/SKILL.md

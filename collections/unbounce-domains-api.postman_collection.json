@@ -1,0 +1,233 @@
+{
+  "item": [
+    {
+      "id": "577a9d5a-76fa-48de-97d0-6dd7854b8172",
+      "name": "Domains",
+      "description": {
+        "content": "Domains attached to sub-accounts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a7efabfb-cb7f-4e23-b34b-69ccf221f9b0",
+          "name": "List domains for a sub-account",
+          "request": {
+            "name": "List domains for a sub-account",
+            "description": {},
+            "url": {
+              "path": [
+                "sub_accounts",
+                ":sub_account_id",
+                "domains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sub_account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93afeb17-728d-4b86-88eb-9f08ae1f5465",
+              "name": "Domain collection",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sub_accounts",
+                    ":sub_account_id",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sub_account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"domains\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"state\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"state\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4027036a-206c-4a7a-9927-a725986a5235",
+          "name": "Retrieve a domain",
+          "request": {
+            "name": "Retrieve a domain",
+            "description": {},
+            "url": {
+              "path": [
+                "domains",
+                ":domain_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "300fdfaa-8b8a-40bb-9ae9-b9fae73f74b4",
+              "name": "Domain",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domains",
+                    ":domain_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"state\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unbounce.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4383867e-bf34-4e28-8409-fd60cb62c2b8",
+    "name": "Unbounce REST Accounts Domains API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Unbounce REST API provides programmatic access to accounts,\nsub-accounts, domains, pages, page groups, and leads. Authentication\nuses an API key (available to all Unbounce pricing plans) or OAuth 2.0\nAuthorization Code flow (granted case-by-case). Clients send a custom\nAccept header indicating the API version.\n\nEndpoint surface and authentication confirmed against\nhttps://developer.unbounce.com/api_reference/.\n\n\nContact Support:\n Name: Unbounce Developers",
+      "type": "text/plain"
+    }
+  }
+}

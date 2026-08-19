@@ -1,0 +1,165 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/unbounce-mcp-tools.json + openapi/*.yml + raml/unbounce-api-v0.4.raml
+note: >-
+  Binds Unbounce's 37 published MCP tools to the public REST surface. The two are
+  overlapping-but-non-identical projections of one core: the public REST API v0.4 is
+  read-only apart from lead creation, while MCP is the only public write surface for
+  pages, variants, publishing, traffic and page groups. Live tools/list is OAuth-gated,
+  so tool names, params and semantics come from Unbounce's own published tool reference;
+  mappings are by documented semantics and are graded honestly.
+surfaces:
+  openapi:
+    files:
+    - openapi/unbounce-accounts-api-openapi.yml
+    - openapi/unbounce-domains-api-openapi.yml
+    - openapi/unbounce-leads-api-openapi.yml
+    - openapi/unbounce-meta-api-openapi.yml
+    - openapi/unbounce-pagegroups-api-openapi.yml
+    - openapi/unbounce-pages-api-openapi.yml
+    - openapi/unbounce-users-api-openapi.yml
+    base_url: https://api.unbounce.com
+    gated: false
+    note: Public REST API v0.4; the provider-published contract is RAML 0.8 (raml/unbounce-api-v0.4.raml).
+  graphql:
+    endpoint: null
+    note: Unbounce publishes no GraphQL surface.
+  mcp:
+    url: https://mcp.unbounce.com/mcp
+    gated: true
+    note: tools/list returns HTTP 401 invalid_token; OAuth (scope "unbounce") required for live introspection.
+crosswalk:
+- tool: whoami
+  category: identity
+  rest: [listUsers]
+  binding: rest
+  confidence: high
+  note: >-
+    Tool documentation states it "calls the Unbounce API on the caller's behalf"; the
+    REST /users resource returns the authenticated user (RAML example users/self_get.json).
+- tool: list_accounts_and_clients
+  category: identity
+  rest: [listAccounts, listSubAccountsForAccount]
+  binding: rest
+  confidence: high
+  note: >-
+    Fans out over two REST operations — accounts, then each account's sub-accounts
+    ("clients" in Unbounce product language). Tool docs state it calls the Unbounce API.
+- tool: list_client_pages
+  category: pages
+  rest: [listSubAccountPages, listPages]
+  binding: rest
+  confidence: medium
+  note: >-
+    Same collection, richer projection. The tool returns routing_strategy/routing_config
+    and an unpublished-changes flag that the REST page schema does not expose, and it
+    paginates with after/next_after rather than REST offset/limit.
+- tool: list_page_groups
+  category: page-groups
+  rest: [listPageGroupsForSubAccount]
+  binding: rest
+  confidence: high
+- tool: list_client_domains
+  category: domains
+  rest: [listDomainsForSubAccount]
+  binding: rest
+  confidence: high
+- tool: get_page_stats
+  category: stats
+  rest: [listPages]
+  binding: rest
+  confidence: low
+  note: >-
+    REST only exposes page stats as a collection flag (GET /pages?with_stats=true) with
+    no per-variant breakdown. The tool's variant-level visits/visitors/conversions/
+    conversion_rate_delta/confidence and start_date/end_date windowing have no REST
+    equivalent, so this is a partial binding at best.
+mcp_only:
+- tool: get_account_plan
+  reason: Billing plan/subscription is not exposed on the public REST API.
+- tool: list_page_variants
+  reason: REST v0.4 has no variant resource; variants surface only through MCP.
+- tool: get_variant
+  reason: Variant draft HTML/CSS/JS is an MCP-managed artifact with no REST endpoint.
+- tool: get_layout_hints
+  reason: Server-side rendered-layout analysis; a composite with no REST backing.
+- tool: list_assets
+  reason: The client asset library is not a public REST resource.
+- tool: upload
+  reason: Server-side workspace file upload (presigned URLs); MCP-server capability.
+- tool: upload_inband
+  reason: Server-side workspace file upload; MCP-server capability.
+- tool: download
+  reason: Server-side workspace object download; MCP-server capability.
+- tool: download_inband
+  reason: Server-side workspace object read; MCP-server capability.
+- tool: create_page_from_html
+  reason: Page creation is MCP-only; public REST v0.4 is read-only for pages.
+- tool: create_variant_from_html
+  reason: Variant creation is MCP-only.
+- tool: create_variant_from_existing_variant
+  reason: Builder-to-MCP variant import; MCP-only.
+- tool: update_variant_from_html
+  reason: Variant body replacement is MCP-only.
+- tool: bulk_edit_variants
+  reason: Server-side composite across many variants; no REST equivalent.
+- tool: publish_page
+  reason: Publishing is MCP-only; REST exposes published state read-only.
+- tool: unpublish_page
+  reason: Unpublishing is MCP-only.
+- tool: set_traffic
+  reason: Traffic allocation / Smart Traffic staging is MCP-only.
+- tool: set_conversion_goals
+  reason: Conversion-goal declaration is MCP-only.
+- tool: set_page_metadata
+  reason: SEO/Open Graph head fields are MCP-only.
+- tool: set_page_url
+  reason: Published domain + path assignment is MCP-only.
+- tool: manage_page_redirect
+  reason: Page redirects are MCP-only.
+- tool: delete_page
+  reason: Page soft-delete is MCP-only.
+- tool: set_variant_standing
+  reason: A/B lifecycle transitions are MCP-only.
+- tool: set_variant_name
+  reason: Variant rename is MCP-only.
+- tool: delete_variant
+  reason: Variant delete is MCP-only.
+- tool: manage_page_group
+  reason: Page-group create/rename/membership is MCP-only; REST is read-only.
+- tool: delete_page_group
+  reason: Page-group delete is MCP-only.
+- tool: reset_page_stats
+  reason: Stats reset is MCP-only and destructive.
+- tool: version
+  reason: MCP server build metadata; not an API resource.
+- tool: recipes
+  reason: MCP server-side prompt catalog; not an API resource.
+- tool: submit_feedback
+  reason: MCP feedback capture; not an API resource.
+rest_only:
+- capability: api-metadata
+  operations: [getApiMeta]
+- capability: accounts
+  operations: [getAccount, getSubAccount]
+- capability: pages
+  operations: [getPage, listAccountPages, listPagesForDomain, listPagesForPageGroup, listFormFields]
+- capability: domains
+  operations: [getDomain]
+- capability: leads
+  operations: [listLeadsForPage, getLeadForPage, getLead, listLeadDeletionRequests, getLeadDeletionRequest]
+  note: >-
+    Leads are the largest REST-only capability and the sharpest divergence — no MCP tool
+    reads or writes lead data, and the RAML additionally documents POST
+    /pages/{page_id}/leads (lead creation), which is absent from the derived OpenAPI files.
+coverage:
+  mcp_tools_named: 37
+  mcp_tools_bound_to_rest: 6
+  mcp_only: 31
+  rest_operations_total: 21
+  rest_operations_with_a_tool: 8
+  rest_only_operations: 13
+  note: >-
+    Counted against the 21 operationIds present in openapi/. listPages backs two tools
+    (list_client_pages, get_page_stats), which is why bound-tool and bound-operation
+    counts differ.

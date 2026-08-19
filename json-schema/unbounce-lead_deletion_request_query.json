@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description":
+    "Representation of a lead deletion request. Perform and create lead data deletion request. When all_leads is set and lead-ids are not provided, delete all leads of the page. When from ~ to datetime range is provided, only delete leads within the range.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "lead_ids": {
+      "type": "array",
+      "description":
+        "A list of lead ids to be deleted. If the lead ID(s) do not exist for the requested page, missing leads are skipped and no error will be reported.",
+      "items": [
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "all_leads": {
+      "type": "boolean"
+    },
+    "from": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "to": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

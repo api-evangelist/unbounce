@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "documentation": "https://developer.unbounce.com/api_reference/#id_users",
+    "location": "https://api.unbounce.com/users/1460053",
+    "related": {
+      "sub_accounts": [
+        "https://api.unbounce.com/sub_accounts/1552433",
+        "https://api.unbounce.com/sub_accounts/1552463"
+      ],
+      "accounts": [
+        "https://api.unbounce.com/accounts/1456243"
+      ]
+    }
+  },
+  "email": "corporate.cole@unbounce.com",
+  "first_name": "Corporate Cole",
+  "id": "1460053",
+  "last_name": "Enterprises"
+}

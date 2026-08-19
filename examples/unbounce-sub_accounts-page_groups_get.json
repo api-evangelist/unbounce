@@ -1,0 +1,23 @@
+{
+    "metadata": {
+        "count": 1,
+        "documentation": "https://developer.unbounce.com/api_reference/#id_page_groups__page_group_id__pages",
+        "location": "https://api.unbounce.com/sub_accounts/1552433/page_groups",
+        "related": {
+            "sub_account": "https://api.unbounce.com/sub_accounts/1552433"
+        }
+    },
+    "page_groups": [
+        {
+            "id": "849893",
+            "metadata": {
+                "documentation": "https://developer.unbounce.com/api_reference/#id_page_groups__page_group_id__pages",
+                "related": {
+                    "pages": "https://api.unbounce.com/page_groups/849893/pages",
+                    "sub_account": "https://api.unbounce.com/sub_accounts/1552433"
+                }
+            },
+            "name": "Marketing Solutions"
+        }
+    ]
+}

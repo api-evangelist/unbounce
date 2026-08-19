@@ -1,0 +1,46 @@
+{
+    "form_fields": [
+        {
+            "id": "name",
+            "name": "Name",
+            "type": "text",
+            "validations": {
+                "required": false
+            }
+        },
+        {
+            "id": "email",
+            "name": "Email",
+            "type": "text",
+            "validations": {
+                "email": true,
+                "required": false
+            }
+        },
+        {
+            "id": "phone_number",
+            "name": "Phone Number",
+            "type": "text",
+            "validations": {
+                "phone": true,
+                "required": false
+            }
+        },
+        {
+            "id": "company",
+            "name": "Company",
+            "type": "text",
+            "validations": {
+                "required": false
+            }
+        }
+    ],
+    "metadata": {
+        "count": 4,
+        "documentation": "https://developer.unbounce.com/api_reference/#id_pages__page_id__form_fields",
+        "location": "https://api.unbounce.com/pages/a0a3ffdf-5965-4ef2-8414-8afcded91f70/form_fields",
+        "related": {
+            "page": "https://api.unbounce.com/pages/a0a3ffdf-5965-4ef2-8414-8afcded91f70"
+        }
+    }
+}

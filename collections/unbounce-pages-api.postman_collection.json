@@ -1,0 +1,593 @@
+{
+  "item": [
+    {
+      "id": "db9575a7-3eeb-43dc-838f-80706dfdeda7",
+      "name": "Pages",
+      "description": {
+        "content": "Landing pages and form fields",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "83a2c3ab-8d70-4a0f-a6f9-74d5a07b5b74",
+          "name": "List pages for an account",
+          "request": {
+            "name": "List pages for an account",
+            "description": {},
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "pages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f8a85a52-4764-4612-a269-e7c9b7e7f817",
+              "name": "Page collection",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pages\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"sub_account_id\": \"string\",\n      \"domain_id\": \"string\",\n      \"url\": \"string\",\n      \"state\": \"string\",\n      \"created_at\": \"2020-02-20T07:53:30.956Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"sub_account_id\": \"string\",\n      \"domain_id\": \"string\",\n      \"url\": \"string\",\n      \"state\": \"string\",\n      \"created_at\": \"2015-10-30T02:21:30.995Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d60a7f6d-0a36-4639-8cfb-c493b32afba5",
+          "name": "List pages for a sub-account",
+          "request": {
+            "name": "List pages for a sub-account",
+            "description": {},
+            "url": {
+              "path": [
+                "sub_accounts",
+                ":sub_account_id",
+                "pages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sub_account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "198724d9-0c01-43b8-a93e-6ffdbaee7d00",
+              "name": "Page collection",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sub_accounts",
+                    ":sub_account_id",
+                    "pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sub_account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pages\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"sub_account_id\": \"string\",\n      \"domain_id\": \"string\",\n      \"url\": \"string\",\n      \"state\": \"string\",\n      \"created_at\": \"2020-02-20T07:53:30.956Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"sub_account_id\": \"string\",\n      \"domain_id\": \"string\",\n      \"url\": \"string\",\n      \"state\": \"string\",\n      \"created_at\": \"2015-10-30T02:21:30.995Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28469d6a-90a5-400c-be91-174646529c2f",
+          "name": "List pages on a domain",
+          "request": {
+            "name": "List pages on a domain",
+            "description": {},
+            "url": {
+              "path": [
+                "domains",
+                ":domain_id",
+                "pages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "84e69575-3996-4ce0-bb75-065e0a615cc4",
+              "name": "Page collection",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domains",
+                    ":domain_id",
+                    "pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pages\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"sub_account_id\": \"string\",\n      \"domain_id\": \"string\",\n      \"url\": \"string\",\n      \"state\": \"string\",\n      \"created_at\": \"2020-02-20T07:53:30.956Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"sub_account_id\": \"string\",\n      \"domain_id\": \"string\",\n      \"url\": \"string\",\n      \"state\": \"string\",\n      \"created_at\": \"2015-10-30T02:21:30.995Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9bfea068-5e10-4537-bf94-e490e8ea67a7",
+          "name": "List all accessible pages",
+          "request": {
+            "name": "List all accessible pages",
+            "description": {},
+            "url": {
+              "path": [
+                "pages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2767c8c9-eaf1-42f6-baca-a4df1ff55422",
+              "name": "Page collection",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pages\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"sub_account_id\": \"string\",\n      \"domain_id\": \"string\",\n      \"url\": \"string\",\n      \"state\": \"string\",\n      \"created_at\": \"2020-02-20T07:53:30.956Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"sub_account_id\": \"string\",\n      \"domain_id\": \"string\",\n      \"url\": \"string\",\n      \"state\": \"string\",\n      \"created_at\": \"2015-10-30T02:21:30.995Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18c7c3b8-9022-4911-bb8b-6272caded975",
+          "name": "Retrieve a page",
+          "request": {
+            "name": "Retrieve a page",
+            "description": {},
+            "url": {
+              "path": [
+                "pages",
+                ":page_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "page_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c127e2b4-0d7e-440d-a494-6f99d06067ea",
+              "name": "Page",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    ":page_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "page_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"sub_account_id\": \"string\",\n  \"domain_id\": \"string\",\n  \"url\": \"string\",\n  \"state\": \"string\",\n  \"created_at\": \"2025-04-30T08:07:52.323Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aaccea7e-45ed-4fcd-a4e4-a2db6f424e0f",
+          "name": "Retrieve form fields for a page",
+          "request": {
+            "name": "Retrieve form fields for a page",
+            "description": {},
+            "url": {
+              "path": [
+                "pages",
+                ":page_id",
+                "form_fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "page_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9455dcc3-9960-436b-97f8-45611a90ad55",
+              "name": "Form field collection",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    ":page_id",
+                    "form_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "page_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"form_fields\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"required\": false\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"required\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unbounce.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4c791da3-7429-47e3-a35f-868720d3ef1d",
+    "name": "Unbounce REST Accounts Pages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Unbounce REST API provides programmatic access to accounts,\nsub-accounts, domains, pages, page groups, and leads. Authentication\nuses an API key (available to all Unbounce pricing plans) or OAuth 2.0\nAuthorization Code flow (granted case-by-case). Clients send a custom\nAccept header indicating the API version.\n\nEndpoint surface and authentication confirmed against\nhttps://developer.unbounce.com/api_reference/.\n\n\nContact Support:\n Name: Unbounce Developers",
+      "type": "text/plain"
+    }
+  }
+}

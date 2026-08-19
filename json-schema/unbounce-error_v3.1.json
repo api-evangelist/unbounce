@@ -1,0 +1,9 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "description": "A generic error (standalone version of definitions#error)",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "definitions_v3.1.json#/error"
+        }]
+}

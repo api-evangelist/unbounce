@@ -1,0 +1,120 @@
+{
+  "item": [
+    {
+      "id": "410a480c-3f09-4925-b739-c8e794199a4f",
+      "name": "Meta",
+      "description": {
+        "content": "API meta-information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9d3ccba7-699f-4c62-a21e-b2012a8e20a5",
+          "name": "Retrieve API meta-information",
+          "request": {
+            "name": "Retrieve API meta-information",
+            "description": {},
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ae42d5a-e8c8-41e7-85ad-00ec4c710849",
+              "name": "API metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"current_user_url\": \"string\",\n  \"accounts_url\": \"string\",\n  \"api_version\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unbounce.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5cd100f8-32fd-4245-83a0-693269463605",
+    "name": "Unbounce REST Accounts Meta API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Unbounce REST API provides programmatic access to accounts,\nsub-accounts, domains, pages, page groups, and leads. Authentication\nuses an API key (available to all Unbounce pricing plans) or OAuth 2.0\nAuthorization Code flow (granted case-by-case). Clients send a custom\nAccept header indicating the API version.\n\nEndpoint surface and authentication confirmed against\nhttps://developer.unbounce.com/api_reference/.\n\n\nContact Support:\n Name: Unbounce Developers",
+      "type": "text/plain"
+    }
+  }
+}

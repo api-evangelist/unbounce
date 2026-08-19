@@ -1,0 +1,52 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.unbounce.com/getting_started/#Versions
+note: >-
+  Unbounce publishes no dated changelog or release-notes feed for the REST API. The only
+  version history on the developer portal is a static section documenting the 0.3 -> 0.4
+  break. The one surface that IS versioned and dated is the agent-plugin repository, so
+  both are recorded here with their real provenance. Dates below are the dates Unbounce
+  states or the dates GitHub records — none are inferred.
+surfaces:
+- surface: REST API
+  scheme: media-type version (application/vnd.unbounce.api.v0.4+json)
+  current: '0.4'
+  dated_changelog: false
+  url: https://developer.unbounce.com/getting_started/#Versions
+- surface: MCP server / agent plugin
+  scheme: semver
+  current: 1.0.320
+  dated_changelog: false
+  url: https://github.com/unbounce/agent-plugins
+  note: No GitHub Releases and no CHANGELOG file; version lives only in plugin.json.
+entries:
+- version: 1.0.320
+  date: '2026-08-11'
+  surface: MCP server / agent plugin
+  type: additions
+  source: https://github.com/unbounce/agent-plugins (repository pushed_at)
+  highlights:
+  - unbounce-mcp plugin published for Claude Code / Cowork and ChatGPT / Codex
+  - 37 MCP tools documented in the published tool reference (generated 2026-08-11T19:16:34Z)
+  - Three bundled Agent Skills — mcp-page-authoring, mcp-modernize, mcp-feedback
+- version: 1.0.0
+  date: '2026-07-27'
+  surface: MCP server / agent plugin
+  type: additions
+  source: https://github.com/unbounce/agent-plugins (repository created_at)
+  highlights:
+  - Unbounce agent-plugin marketplace repository created
+- version: '0.4'
+  date: '2018-05'
+  surface: REST API
+  type: breaking
+  source: https://developer.unbounce.com/getting_started/#Versions
+  highlights:
+  - Version 0.3 retired and no longer accessible as of May 2018
+  - Removed the endpoint listing all leads for a given sub-account
+  - Property names changed to snake_case (accountId -> account_id)
+  - ID fields changed from integer to string
+  - page_uuid renamed to page_id
+  - Optional properties are omitted rather than nullified
+  - Date format standardised to yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+  - Removed internal_page_id from page tests, uuid from sub_accounts, and options from account/sub_account

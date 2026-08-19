@@ -1,0 +1,66 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Unbounce REST Accounts Users API
+  version: 1.0.0
+extends: openapi/unbounce-users-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Enhancements derived from Unbounce's own published surface — the RAML 0.8 definition at
+  https://developer.unbounce.com/raml/v0.4/api.raml, the developer getting-started guide,
+  and the live probes recorded in this repository. The harvested spec is never mutated.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-08-13'
+    x-api-evangelist-provider: unbounce
+    x-source-contract: https://developer.unbounce.com/raml/v0.4/api.raml
+    x-source-contract-format: RAML 0.8
+    x-spec-provenance: >-
+      Unbounce publishes no OpenAPI. This document was authored by API Evangelist from
+      Unbounce's published RAML 0.8 definition and API reference.
+- target: $.info
+  update:
+    x-rate-limit:
+      requests: 500
+      window: 1 minute
+      scope: per user account and IP address
+      exhaustion_status: 429
+      headers: []
+      source: https://developer.unbounce.com/getting_started/#Rate-Limiting
+    x-idempotency:
+      supported: false
+      source: https://developer.unbounce.com/getting_started/
+    x-versioning:
+      scheme: media-type
+      header: Accept
+      media_type: application/vnd.unbounce.api.v0.4+json
+      current: '0.4'
+    x-error-envelope:
+      rfc9457: false
+      shape: '{"message": string, "documentation": uri}'
+      schema: json-schema/unbounce-error_v3.1.json
+    x-status-page: https://status.unbounce.com
+    x-mcp-server: https://mcp.unbounce.com/mcp
+- target: $.components.securitySchemes.oauth2.flows.authorizationCode
+  update:
+    x-scope-note: >-
+      Unbounce documents `full` as the only supported scope; OAuth tokens carry exactly
+      the permissions the authenticating user already has.
+    x-token-format: JWT
+    x-token-lifetime-seconds: 600
+    x-registration: manual, granted case-by-case
+- target: $.components.securitySchemes.apiKeyAuth
+  update:
+    x-permissions: >-
+      Unscoped — API keys act as account administrators across accounts, sub-accounts,
+      domains, page groups, pages, leads and users.
+    x-provisioning: not self-serve; API Access request approved by Unbounce support
+- target: $.paths..get
+  update:
+    x-pagination:
+      style: offset-limit
+      params: [offset, limit, from, to, sort_order, count]
+      limit_default: 50
+      limit_max: 1000
+      source: raml/unbounce-api-v0.4.raml (trait `paged`)

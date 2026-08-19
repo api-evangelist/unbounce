@@ -1,0 +1,94 @@
+generated: '2026-08-13'
+method: searched
+source: https://documentation.unbounce.com/hc/en-us/articles/203510044-Using-a-Webhook
+source_updated: '2026-02-06'
+spec_type: null
+asyncapi_published: false
+note: >-
+  Unbounce publishes NO AsyncAPI document and no event catalog. It does document one
+  real outbound webhook — the Form Submit Webhook — in its help center, captured here
+  verbatim. This is a single-event, page-scoped, UI-configured surface: there is no API
+  to register, list, or delete a webhook, so it cannot be provisioned programmatically.
+  Nothing below was authored or inferred by API Evangelist.
+transport: HTTP POST
+security:
+  signing: false
+  secret: false
+  note: >-
+    Unbounce does not sign webhook payloads and publishes no shared secret or HMAC
+    header, so a receiver cannot verify authenticity from the request alone. The
+    documented mitigation is source-IP allowlisting; custom headers can be added
+    per webhook for services that require them.
+  source_ips:
+  - 54.241.34.25
+  - 50.19.99.184
+  custom_headers: supported (optional, configured per webhook)
+delivery:
+  expected_response: '200'
+  detail: >-
+    "Be sure to return a 200 response to ensure our webhook sees the post as successful."
+  retries: not documented
+  ordering: not documented
+configuration:
+  where: Page Overview -> Integrations tab -> Webhooks tab -> +Add Webhook
+  scope: per page, popup, or sticky bar
+  api_managed: false
+  content_types:
+  - application/x-www-form-urlencoded
+  - application/json
+  - application/xml
+  default_content_type: application/x-www-form-urlencoded
+  field_mapping: >-
+    Fields can be removed or renamed when the content type is JSON or XML; the
+    urlencoded default sends the raw form field IDs.
+events:
+- name: form_submit
+  title: Form Submit Webhook
+  trigger: A visitor submits a form on an Unbounce landing page, popup, or sticky bar.
+  method: POST
+  payload_variants:
+  - data.json
+  - data.xml
+  top_level_fields:
+  - {name: page_url, description: The URL of the page that contains the form.}
+  - {name: page_name, description: The name given to the page.}
+  - {name: page_id, description: The page identifier.}
+  - name: variant
+    description: 'The page variant the visitor saw — "a", "b", ... continuing "aa", "bb" past 26 variants.'
+  data_fields:
+  - name: <form field IDs>
+    description: "The form's own field IDs, verbatim (e.g. full_name, email)."
+  - {name: ip_address, description: The visitor's IP address.}
+  - name: page_uuid
+    description: '36-character UUID identifying the page, e.g. a2838d98-4cf4-11df-a3fd-00163e372d58.'
+  - name: variant
+    description: The page variant identifier.
+  - name: time_submitted
+    description: 'Time of lead capture in UTC, e.g. "10:57 PM UTC". UTC is the only timezone.'
+  - {name: date_submitted, description: 'Day of lead capture, YEAR-MM-DD.'}
+  - {name: page_url, description: The URL of the page containing the form.}
+  - {name: page_name, description: The name given to the page.}
+  example_payload: |
+    {
+      "email": ["test@test.com"],
+      "ip_address": ["1.1.1.1"],
+      "page_uuid": ["a2838d98-4cf4-11df-a3fd-00163e372d58"],
+      "variant": ["a"],
+      "time_submitted": ["10:57 PM UTC"],
+      "date_submitted": ["2023-06-06"],
+      "page_url": ["http://my-landing-page.ca/"],
+      "page_name": ["My Landing Page"]
+    }
+  example_note: >-
+    Every value is an ARRAY, including single-valued fields — a receiver must unwrap
+    them. Reproduced verbatim from Unbounce's documentation.
+  related_rest: >-
+    The same submissions are readable after the fact through the REST API
+    (listLeadsForPage / getLeadForPage), so the webhook is the push twin of the leads
+    collection.
+gaps:
+- No AsyncAPI or event-catalog document.
+- Only one event type; no page/variant/publish/test lifecycle events.
+- Webhooks cannot be created, listed, or deleted through the API — UI only.
+- No payload signature or shared secret; authenticity rests on IP allowlisting.
+- No documented retry or dead-letter behaviour.

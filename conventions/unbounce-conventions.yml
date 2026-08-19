@@ -1,0 +1,118 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.unbounce.com/getting_started/
+derived_from:
+- raml/unbounce-api-v0.4.raml
+- openapi/unbounce-pages-api-openapi.yml
+authentication:
+  styles:
+  - name: API key
+    mechanism: HTTP Basic
+    detail: API key as the username, empty password (`curl -u API_KEY:`)
+    availability: all pricing plans, after an approved API Access request
+  - name: OAuth 2.0
+    mechanism: Bearer token (JWT)
+    flow: authorization_code
+    detail: Short-lived access token plus refresh token; applications granted case-by-case
+  transport: HTTPS required for all connections
+  artifact: authentication/unbounce-authentication.yml
+versioning:
+  scheme: media-type (vendor Accept header)
+  header: Accept
+  value: application/vnd.unbounce.api.v0.4+json
+  current: '0.4'
+  default_when_omitted: '0.4'
+  note: >-
+    The version travels in the Accept header, not the URL path. The RAML `versioned`
+    trait declares the header with an enum of exactly one value, so 0.4 is the only
+    negotiable representation.
+  artifact: lifecycle/unbounce-lifecycle.yml
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    Unbounce documents no idempotency key and no request-replay contract anywhere in the
+    developer docs or the RAML. The public REST surface is read-only apart from POST
+    /pages/{page_id}/leads, which has no dedupe semantics — a retried lead submission
+    creates a second lead. No Idempotency pointer is emitted for this provider.
+pagination:
+  style: offset-limit
+  params:
+  - name: offset
+    type: integer
+    default: 0
+    minimum: 0
+    description: Omit the first `offset` results.
+  - name: limit
+    type: integer
+    default: 50
+    minimum: 0
+    maximum: 1000
+    description: Return at most `limit` results.
+  - name: from
+    type: string
+    format: RFC 3339 UTC
+    description: Limit results to those created after `from`.
+  - name: to
+    type: string
+    format: RFC 3339 UTC
+    description: Limit results to those created before `to`.
+  response_fields:
+  - metadata.count
+  - metadata.location
+  - metadata.documentation
+  - metadata.related
+  note: >-
+    From the RAML `paged` trait. Collections return a `metadata` envelope carrying
+    `count` and hypermedia `related` links rather than cursor tokens. The MCP surface
+    paginates differently — `after` / `next_after` offsets — so the two are not
+    interchangeable.
+sorting:
+  param: sort_order
+  values: [asc, desc]
+  default: asc
+  field: creation date
+counting:
+  param: count
+  type: boolean
+  default: false
+  description: When true, suppress the collection body and return only the count.
+filtering:
+  examples:
+  - {operation: listPages, param: with_stats, type: boolean, description: Include page stats in the collection.}
+  - {operation: listPages, param: role, type: enum, allowed: [viewer, author], description: Restrict returned pages by the caller's role.}
+  - {operation: listFormFields, param: include_sub_pages, type: boolean, description: Include sub-page form fields.}
+hypermedia:
+  supported: true
+  note: >-
+    Every entity and collection carries a `metadata` object with `location` (self),
+    `documentation` (a deep link into the API reference) and `related` (named links to
+    adjacent collections). The API root `GET /` is a discovery document listing entry
+    points, supported formats and specification locations.
+metadata_envelope:
+  entity: {required: [location, documentation], optional: [related]}
+  collection: {required: [location, documentation, count], optional: [related]}
+error_envelope:
+  format: proprietary JSON
+  schema: json-schema/unbounce-error_v3.1.json
+  observed_shape: '{"message": "Not Found", "documentation": "https://api.unbounce.com/doc"}'
+  rfc9457: false
+  note: >-
+    Errors are a plain JSON object, not application/problem+json. The shape above was
+    observed live on an unauthenticated GET of https://api.unbounce.com/ (HTTP 404).
+  artifact: errors/unbounce-problem-types.yml
+rate_limit_signaling:
+  status: 429
+  headers: []
+  note: No rate-limit response headers are documented. See rate-limits/unbounce-rate-limits.yml.
+request_tracing:
+  request_id_header: null
+  note: No request-id or correlation header is documented for the REST API.
+field_expansion:
+  supported: false
+  note: No sparse-fieldset or expansion syntax; related resources are followed via `metadata.related` links.
+data_conventions:
+  ids: strings (v0.4 changed ID fields from integer to string)
+  naming: snake_case
+  timestamps: RFC 3339 UTC with milliseconds, e.g. 2015-12-16T00:34:47.000Z
+  optional_fields: omitted rather than null

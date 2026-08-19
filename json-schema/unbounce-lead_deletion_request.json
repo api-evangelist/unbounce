@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Representation of a lead deletion request.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["id", "created_by", "created_at", "completed_at", "total_leads_deleted", "status", "metadata"],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "page_id": {
+      "type": "string"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "total_leads_deleted": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["completed", "failed", "pending"]
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["location"],
+      "properties": {
+        "location": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}

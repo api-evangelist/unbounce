@@ -1,0 +1,63 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.unbounce.com/getting_started/#Errors
+derived_from:
+- raml/unbounce-api-v0.4.raml
+- openapi/unbounce-accounts-api-openapi.yml
+format: proprietary
+rfc9457: false
+envelope:
+  content_type: application/json
+  schema: json-schema/unbounce-error_v3.1.json
+  observed: '{"message": "Not Found", "documentation": "https://api.unbounce.com/doc"}'
+  observed_from: unauthenticated GET https://api.unbounce.com/ (HTTP 404), 2026-08-13
+  note: >-
+    Unbounce publishes a JSON Schema for the error body but it is an indirection —
+    error_v3.1.json is an allOf $ref into definitions_v3.1.json#/error, and that
+    definitions document is not published alongside it, so the concrete field list is
+    only observable from live responses. Errors carry no machine-readable type URI and
+    no error code; `message` is prose and `documentation` is a docs deep link.
+problems:
+- status: 200
+  title: OK
+  detail: Successful request.
+- status: 400
+  title: Bad Request
+  detail: The request could not be understood, possible syntax malformation.
+  source: raml/unbounce-api-v0.4.raml (resourceType pagedCollection, post 400)
+- status: 401
+  title: Unauthorized Request
+  detail: The request requires user authentication. API Key or Access Token is missing.
+  source_operation: openapi/unbounce-accounts-api-openapi.yml#listAccounts
+  auth_scheme_note: Declared on both the api_key and oauth_2_0 security schemes in the RAML.
+- status: 403
+  title: Forbidden Access
+  detail: >-
+    The API Key is forbidden to access the resource, or the Access Token is bad or has
+    expired. On lead endpoints it also means the principal was not found for the given
+    Page ID.
+  source: raml/unbounce-api-v0.4.raml (securitySchemes + /pages/{page_id}/leads)
+- status: 404
+  title: Not Found
+  detail: The server has not found anything matching the request-uri.
+  source_operation: openapi/unbounce-accounts-api-openapi.yml#getAccount
+  raml_note: Declared by the `member` resourceType and the `subCollection` trait, so it applies to every member and sub-collection resource.
+- status: 409
+  title: Version Conflict
+  detail: The request could not be completed due to a conflict with the current state of the resource.
+- status: 422
+  title: Unprocessable Entity
+  detail: Missing body.
+  source: raml/unbounce-api-v0.4.raml (POST /pages/{page_id}/leads)
+- status: 429
+  title: Too Many Requests
+  detail: Too many requests in a given amount of time; the 500 req/min limit was exceeded.
+  retry_after_header: false
+  see_also: rate-limits/unbounce-rate-limits.yml
+- status: 500
+  title: Server Error
+  detail: Something went wrong on Unbounce's end.
+gaps:
+- The error body carries no stable error code or type URI, so failures cannot be branched on programmatically without string-matching `message`.
+- definitions_v3.1.json (the target of the published error schema's $ref) is not served, leaving the error schema unresolvable.
+- No Retry-After or rate-limit headers accompany 429.

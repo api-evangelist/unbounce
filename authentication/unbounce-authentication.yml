@@ -1,26 +1,95 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/unbounce-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: https://developer.unbounce.com/getting_started/#Authorization
+docs: https://developer.unbounce.com/getting_started/#Authorization
+derived_from:
+- raml/unbounce-api-v0.4.raml
+- openapi/_original/unbounce-openapi.yml
+- well-known/unbounce-mcp-oauth-authorization-server.json
 summary:
-  types:
-  - http
-  - oauth2
-  oauth2_flows:
-  - authorizationCode
+  types: [http, oauth2]
+  http_schemes: [basic, bearer]
+  oauth2_flows: [authorizationCode]
+  surfaces: [rest, mcp]
+  transport: HTTPS required
+  self_serve: false
 schemes:
-- name: apiKeyAuth
+- name: api_key
+  surface: REST API v0.4
   type: http
   scheme: basic
-  description: HTTP Basic auth using the Unbounce API key as the username.
-  sources:
-  - openapi/unbounce-openapi.yml
+  location: Authorization header (HTTP Basic)
+  credential: Unbounce API key as the username, empty password
+  example: 'curl -u API_KEY: -H "Accept: application/vnd.unbounce.api.v0.4+json" https://api.unbounce.com/accounts'
+  availability: All pricing plans, after an approved API Access request
+  provisioning: >-
+    Not self-serve. Submit the API Access form, wait for Unbounce support to enable
+    access ("a couple of days"), then create keys in the app under Manage Account ->
+    API Access.
+  permissions: >-
+    Unscoped. "API keys currently act like Unbounce account administrators" — read
+    access to Accounts, Sub Accounts/Clients, Domains, Page Groups, Pages, Leads and Users.
+  rotation: Multiple keys can be created per account; no documented expiry or rotation policy.
+  errors:
+  - {status: 401, meaning: API key missing}
+  - {status: 403, meaning: API key forbidden to access the resource}
+  sources: [raml/unbounce-api-v0.4.raml, https://developer.unbounce.com/getting_started/#Authorization]
 - name: oauth2
+  surface: REST API v0.4
   type: oauth2
   flows:
   - flow: authorizationCode
     authorizationUrl: https://api.unbounce.com/oauth/authorize
     tokenUrl: https://api.unbounce.com/oauth/token
-    scopes: 2
-  description: OAuth 2.0 Authorization Code (granted case-by-case by Unbounce).
-  sources:
-  - openapi/unbounce-openapi.yml
+    refreshTokenUrl: https://api.unbounce.com/oauth/token
+    scopes: 1
+    scope_names: [full]
+  token_format: JWT
+  token_type: bearer
+  expires_in: 600
+  refresh: 'grant_type=refresh_token; a new refresh token is issued on each exchange'
+  location: 'Authorization: Bearer <token>'
+  provisioning: >-
+    Not self-serve. "We''re still working on providing self-service for OAuth
+    applications" — client credentials are granted case-by-case via a registration form.
+  permissions: OAuth tokens grant exactly the permissions the authenticating user already has.
+  errors:
+  - {status: 401, meaning: access token missing}
+  - {status: 403, meaning: bad or expired access token}
+  sources: [raml/unbounce-api-v0.4.raml, https://developer.unbounce.com/getting_started/#Authorization]
+  note: >-
+    The RAML securityScheme settings name developer.unbounce.com for both OAuth URIs,
+    while the prose docs and every worked example name api.unbounce.com. api.unbounce.com
+    is the one to use; the RAML's baseUri is likewise developer.unbounce.com where the
+    live API is api.unbounce.com — a known inconsistency in Unbounce's published spec.
+- name: mcp-oauth2
+  surface: MCP server (https://mcp.unbounce.com/mcp)
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://mcp.unbounce.com/authorize
+    tokenUrl: https://mcp.unbounce.com/token
+    pkce: S256
+    scopes: 1
+    scope_names: [unbounce]
+  issuer: https://mcp.unbounce.com
+  registration_endpoint: https://mcp.unbounce.com/register
+  dynamic_client_registration: true
+  token_endpoint_auth_methods_supported: [none]
+  client_id_metadata_document_supported: true
+  discovery:
+  - {path: /.well-known/oauth-authorization-server, spec: RFC 8414, status: 200}
+  - {path: /.well-known/oauth-protected-resource, spec: RFC 9728, status: 200}
+  challenge: 'WWW-Authenticate: Bearer resource_metadata="https://mcp.unbounce.com/.well-known/oauth-protected-resource", scope="unbounce"'
+  provisioning: >-
+    Fully self-serve and machine-negotiable — the opposite of the REST surface. A client
+    registers dynamically and the user consents on Unbounce's own sign-in screen; the
+    assistant never sees the password.
+  sources: [https://mcp.unbounce.com/.well-known/oauth-authorization-server]
+observation: >-
+  Unbounce's two authentication surfaces are a generation apart. The REST API requires a
+  human support ticket for a key and a case-by-case grant for an OAuth client, with one
+  unscoped all-or-nothing permission level. The MCP server implements the modern
+  authorization stack — RFC 8414 metadata, RFC 9728 protected-resource metadata, PKCE and
+  RFC 7591 dynamic registration — and can be authorized by an agent with no human in the
+  loop beyond consent.

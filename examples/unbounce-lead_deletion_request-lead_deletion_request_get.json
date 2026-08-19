@@ -1,0 +1,14 @@
+{
+  "id": "97f0351b-2744-4155-9349-552fca447650",
+  "page_id": "9f01a369-642e-45ce-b342-b2d86746e7c4",
+  "created_by": "23fe757a-65bf-4506-9b41-5eb11c620d4f",
+  "created_at": "2018-10-11T21:36:14.433Z",
+  "total_leads_deleted": 0,
+  "status": "pending",
+  "query": { "lead_ids": ["d07de003-6b3d-4603-bea2-3fc84075fc57"] },
+  "completed_at": null,
+  "metadata": {
+    "location":
+      "https://api.unbounce.com/pages/9f01a369-642e-45ce-b342-b2d86746e7c4/lead_deletion_request/97f0351b-2744-4155-9349-552fca447650"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "description" : "User entity include accounts and sub-account data.",
+  "type" : "object",
+  "additionalProperties" : false,
+  "required" : [ "id", "first_name", "last_name", "email", "metadata" ],
+  "properties" : {
+    "first_name" : {
+      "type" : "string"
+    },
+    "last_name" : {
+      "type" : "string"
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "email" : {
+      "type" : "string",
+      "format" : "email"
+    },
+    "metadata" : {
+      "type" : "object",
+      "allOf" : [ {
+        "title" : "Entity Metadata",
+        "type" : "object",
+        "required" : [ "location", "documentation" ],
+        "properties" : {
+          "location" : {
+            "type" : "string",
+            "format" : "uri"
+          },
+          "documentation" : {
+            "type" : "string",
+            "format" : "uri"
+          },
+          "related" : {
+            "type" : "object"
+          }
+        }
+      }, {
+        "type" : "object",
+        "required" : [ "related" ],
+        "properties" : {
+          "related" : {
+            "type" : "object",
+            "additionalProperties" : false,
+            "required" : [ "accounts", "sub_accounts" ],
+            "properties" : {
+              "accounts" : {
+                "type" : "array",
+                "minItems" : 0,
+                "items" : {
+                  "type" : "string",
+                  "format" : "uri"
+                }
+              },
+              "sub_accounts" : {
+                "type" : "array",
+                "minItems" : 0,
+                "items" : {
+                  "type" : "string",
+                  "format" : "uri"
+                }
+              }
+            }
+          }
+        }
+      } ]
+    }
+  }
+}

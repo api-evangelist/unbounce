@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Unbounce REST Accounts Pages API",
+    "version": "0.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List pages for an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/accounts/:account_id/pages",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List pages for an account"
+        },
+        {
+          "info": {
+            "name": "List pages for a sub-account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/sub_accounts/:sub_account_id/pages",
+            "params": [
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List pages for a sub-account"
+        },
+        {
+          "info": {
+            "name": "List pages on a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/domains/:domain_id/pages",
+            "params": [
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List pages on a domain"
+        },
+        {
+          "info": {
+            "name": "List all accessible pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/pages"
+          },
+          "docs": "List all accessible pages"
+        },
+        {
+          "info": {
+            "name": "Retrieve a page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/pages/:page_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a page"
+        },
+        {
+          "info": {
+            "name": "Retrieve form fields for a page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/pages/:page_id/form_fields",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve form fields for a page"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

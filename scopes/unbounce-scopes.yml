@@ -1,24 +1,61 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/unbounce-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: https://developer.unbounce.com/getting_started/#Authorization
+docs: https://developer.unbounce.com/getting_started/#Authorization
+note: >-
+  Unbounce publishes no scope reference page, because there are no granular scopes to
+  reference. Two independent OAuth surfaces exist and each supports exactly one scope.
+  CORRECTION: an earlier derived pass recorded read/write scopes taken from this repo's
+  hand-built OpenAPI; Unbounce's own docs contradict that, and the specs have been
+  corrected to `full`. No scope in this file was inferred.
 schemes:
 - name: oauth2
-  source: openapi/unbounce-openapi.yml
+  surface: REST API v0.4
+  source: https://developer.unbounce.com/getting_started/#Authorization
   flows:
   - flow: authorizationCode
     authorizationUrl: https://api.unbounce.com/oauth/authorize
     tokenUrl: https://api.unbounce.com/oauth/token
-  description: OAuth 2.0 Authorization Code (granted case-by-case by Unbounce).
+    refresh: supported via grant_type=refresh_token
+  token_format: JWT
+  token_lifetime_seconds: 600
+  registration: manual — OAuth applications are granted case-by-case via a request form
+  description: OAuth 2.0 Authorization Code; access tokens are short-lived JWTs.
+- name: mcp-oauth2
+  surface: MCP server (https://mcp.unbounce.com/mcp)
+  source: https://mcp.unbounce.com/.well-known/oauth-authorization-server
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://mcp.unbounce.com/authorize
+    tokenUrl: https://mcp.unbounce.com/token
+    pkce: S256
+    refresh: supported
+  registration: dynamic — https://mcp.unbounce.com/register (RFC 7591)
+  description: OAuth 2.0 with PKCE and dynamic client registration, per the MCP authorization spec.
 scopes:
-- scope: read
-  description: Read access to account resources
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/unbounce-openapi.yml
-- scope: write
-  description: Write access to account resources
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/unbounce-openapi.yml
+- scope: full
+  surface: REST API v0.4
+  description: >-
+    "Currently only (default) scope: 'full' is supported. Which provides access based on
+    the user's credentials." OAuth tokens grant exactly the permissions the authenticating
+    user already has — there is no narrowing.
+  flows: [authorizationCode]
+  sources: [https://developer.unbounce.com/getting_started/#Authorization]
+- scope: unbounce
+  surface: MCP server
+  description: >-
+    The single scope advertised by the MCP authorization server
+    (scopes_supported: ["unbounce"]) and demanded in its 401 WWW-Authenticate challenge.
+    Covers every one of the 37 tools, including the destructive ones.
+  flows: [authorizationCode]
+  sources: [https://mcp.unbounce.com/.well-known/oauth-authorization-server]
+api_key:
+  scoped: false
+  note: >-
+    The API key is not scoped at all — "API keys currently act like Unbounce account
+    administrators", granting read access to every account, sub-account, domain, page
+    group, page, lead and user an administrator can see.
+gaps:
+- No granular or least-privilege scopes on either surface; both are all-or-nothing.
+- No incremental authorization, no per-resource consent, no scope reference page.
+- An agent holding the `unbounce` MCP scope can delete pages, delete variants and reset stats with no further consent step.

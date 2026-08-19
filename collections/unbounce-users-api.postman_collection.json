@@ -1,0 +1,120 @@
+{
+  "item": [
+    {
+      "id": "68dc4ff9-b084-426c-8a93-ae80e8451951",
+      "name": "Users",
+      "description": {
+        "content": "Users in the account",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "28329509-1bc5-4e7c-8b7b-7ca4b7cdd43e",
+          "name": "List users",
+          "request": {
+            "name": "List users",
+            "description": {},
+            "url": {
+              "path": [
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "28ceebbf-77ec-4dcf-9eca-fa62432e4cec",
+              "name": "User collection",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"users\": [\n    {\n      \"id\": \"string\",\n      \"email\": \"xzzM2Z5vj1@LxJncvtysNMZELAbbyyTrlGbW.umdp\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"email\": \"nc8ZaiRHPqv@i.narp\",\n      \"name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unbounce.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "180bcc79-f731-4b33-be77-c3958bad9c53",
+    "name": "Unbounce REST Accounts Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Unbounce REST API provides programmatic access to accounts,\nsub-accounts, domains, pages, page groups, and leads. Authentication\nuses an API key (available to all Unbounce pricing plans) or OAuth 2.0\nAuthorization Code flow (granted case-by-case). Clients send a custom\nAccept header indicating the API version.\n\nEndpoint surface and authentication confirmed against\nhttps://developer.unbounce.com/api_reference/.\n\n\nContact Support:\n Name: Unbounce Developers",
+      "type": "text/plain"
+    }
+  }
+}

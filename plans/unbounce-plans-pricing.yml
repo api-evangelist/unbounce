@@ -1,0 +1,142 @@
+generated: '2026-08-13'
+method: searched
+source: https://unbounce.com/pricing/
+currency: USD
+billing_periods: [monthly, yearly]
+note: >-
+  Read verbatim from Unbounce's own pricing page. Yearly billing is advertised at a 25%
+  discount; the yearly figure is the per-month equivalent when billed annually. Two tiers
+  (Concierge, Agency) are sales-gated with no published price. API access is not a paid
+  add-on — Unbounce states API keys are available on all pricing plans — and the MCP
+  server is listed as a Starter-plan feature, so both agent and REST surfaces are
+  reachable from the lowest paid tier.
+plan_count: 6
+plans:
+- name: Starter
+  slug: starter
+  price_monthly: 29
+  price_yearly_per_month: 22
+  currency: USD
+  billing: [monthly, yearly]
+  summary: Set up and launch your first landing pages
+  limits:
+    pages: 5
+    traffic_volume: 500
+    users: 1
+    root_domains: 1
+  included:
+  - Drag-and-drop builder
+  - MCP server
+  - Lead gen forms
+  - Free hosting
+  - Phone, email, and live chat customer support
+- name: Build
+  slug: build
+  price_monthly: 99
+  price_yearly_per_month: 74
+  currency: USD
+  billing: [monthly, yearly]
+  summary: Create unlimited landing pages quickly and easily
+  limits:
+    pages: unlimited
+    traffic_volume: 20000
+    users: 1
+    root_domains: 1
+  included:
+  - All Starter features
+  - Custom scripts and pixels
+  - Popups and sticky bars
+  - Multi-step forms
+  - AI copywriting
+  - Custom code and styling
+  - 1000+ integrations
+- name: Experiment
+  slug: experiment
+  price_monthly: 149
+  price_yearly_per_month: 112
+  currency: USD
+  billing: [monthly, yearly]
+  summary: Perform A/B tests and optimize conversions
+  most_popular: true
+  limits:
+    pages: unlimited
+    traffic_volume: 30000
+    users: 3
+    root_domains: 2
+  included:
+  - All Build features
+  - Unlimited A/B testing
+  - Unlimited variants
+  - Manual traffic allocation
+  - Confidence intervals
+  - Dynamic text replacement
+  - Conversion insights & reporting
+- name: Optimize
+  slug: optimize
+  price_monthly: 249
+  price_yearly_per_month: 187
+  currency: USD
+  billing: [monthly, yearly]
+  summary: Boost ROI with AI optimization and insights
+  limits:
+    pages: unlimited
+    traffic_volume: 50000
+    users: 5
+    root_domains: 3
+  included:
+  - All Experiment features
+  - AI traffic optimization (Smart Traffic)
+  - Page, popup & sticky bar scheduling
+  - Advanced triggers
+  - Industry benchmarking
+  - Audience insights
+- name: Concierge
+  slug: concierge
+  price_monthly: null
+  price_yearly_per_month: null
+  currency: USD
+  billing: [custom]
+  sales_gated: true
+  summary: Launch, optimize, and scale with expert guidance
+  limits:
+    pages: unlimited
+    traffic_volume: from 100000
+    users: 15
+    root_domains: 5
+  included:
+  - Implementation services
+  - Dedicated customer success manager
+- name: Agency
+  slug: agency
+  price_monthly: null
+  price_yearly_per_month: null
+  currency: USD
+  billing: [custom]
+  sales_gated: true
+  summary: Run campaigns across multiple teams and clients
+  limits:
+    pages: unlimited
+    traffic_volume: from 50000
+    users: from 5
+    root_domains: from 10
+  included:
+  - Implementation services
+  - Dedicated customer success manager
+  - Listing in the agency partner directory
+all_plans_include:
+- Unlimited conversions
+- Unlimited subdomains
+- 100+ templates
+- Free hosting
+- Customer support
+trial:
+  free_trial: true
+  length_days: 14
+  credit_card_required: false
+  url: https://unbounce.com/lp/free-trial/
+api_access:
+  included_in_all_plans: true
+  source: https://developer.unbounce.com/getting_started/
+  note: >-
+    "API access is available on all Unbounce pricing plans." API keys must still be
+    requested through an API Access form and enabled by Unbounce support.

@@ -204,5 +204,7 @@ components:
           authorizationUrl: https://api.unbounce.com/oauth/authorize
           tokenUrl: https://api.unbounce.com/oauth/token
           scopes:
-            read: Read access to account resources
-            write: Write access to account resources
+            full: >-
+              Full access based on the authenticating user's own credentials.
+              Unbounce documents this as the only supported scope
+              (https://developer.unbounce.com/getting_started/#Authorization).

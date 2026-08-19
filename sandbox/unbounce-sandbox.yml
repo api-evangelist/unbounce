@@ -1,0 +1,55 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.unbounce.com/getting_started/
+note: >-
+  Unbounce ships NO sandbox, no test mode, and no test-vs-live key separation. There is
+  one set of credentials and they operate on production data. What it does publish is an
+  interactive API Console — a RAML-driven try-it surface where a developer pastes their
+  real API key — plus a 14-day free trial account. Both are recorded honestly below; no
+  test values are invented because Unbounce publishes none.
+test_mode:
+  supported: false
+  key_prefixes: []
+  note: API keys carry no live/test prefix; every call hits production.
+console:
+  name: Unbounce API Console
+  url: https://developer.unbounce.com/console.html
+  engine: RAML API Console (schemas.unbounce.net/raml/)
+  spec: https://developer.unbounce.com/raml/v0.4/api.raml
+  auth: HTTP Basic — real API key as username, blank password
+  probed: '2026-08-13'
+  http_status: 200
+  note: >-
+    "Or alternatively, browse the API Console and use your API Key as the username,
+    leaving the password field blank." Live requests against production data — treat any
+    write (POST /pages/{page_id}/leads) as real.
+trial:
+  free_trial: true
+  length_days: 14
+  credit_card_required: false
+  url: https://unbounce.com/lp/free-trial/
+  note: The closest thing to a safe environment is a trial account, not a sandbox tenant.
+test_values:
+  cards: []
+  accounts: []
+  identifiers: []
+  note: >-
+    No magic test identifiers are published. The RAML example values (account 1456243,
+    page a2838d98-4cf4-11df-a3fd-00163e372d58, jqdoe@unbounce.com) are documentation
+    samples, not reserved test fixtures — do not use them as triggers.
+mcp:
+  endpoint: https://mcp.unbounce.com/mcp
+  sandbox: false
+  note: >-
+    The MCP server also runs against live account data. Its destructive tools
+    (delete_page, delete_variant, delete_page_group, reset_page_stats) have no dry-run
+    mode; the tool reference marks them `kind: destructive`, which is the only guard
+    rail an agent gets.
+access_request:
+  required: true
+  detail: >-
+    API keys are not self-serve — a developer submits the API Access form and Unbounce
+    support enables access "in a couple of days". OAuth application registration is also
+    a form, granted case-by-case.
+  urls:
+  - https://developer.unbounce.com/getting_started/#api-keys

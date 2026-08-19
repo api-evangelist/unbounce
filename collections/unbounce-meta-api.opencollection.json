@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Unbounce REST Accounts Meta API",
+    "version": "0.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Meta",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve API meta-information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/"
+          },
+          "docs": "Retrieve API meta-information"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

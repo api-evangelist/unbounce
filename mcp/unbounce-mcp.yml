@@ -1,0 +1,616 @@
+generated: '2026-08-13'
+method: searched
+status: published
+source: https://unbounce.com/product/mcp-server/
+sources:
+- https://unbounce.com/product/mcp-server/
+- https://github.com/unbounce/agent-plugins
+- https://raw.githubusercontent.com/unbounce/agent-plugins/main/plugins/unbounce-mcp/.mcp.json
+- https://unbounce.github.io/agent-plugins/unbounce-mcp/
+- https://documentation.unbounce.com/hc/en-us/articles/52207464102804-The-Unbounce-MCP-Server
+deployment:
+  mode: remote
+  endpoint: https://mcp.unbounce.com/mcp
+  transport: http
+  auth: oauth
+  verified: probed
+  note: >-
+    Endpoint read verbatim from Unbounce's own plugin manifest
+    (plugins/unbounce-mcp/.mcp.json, {"type":"http","url":"https://mcp.unbounce.com/mcp"})
+    and confirmed live: an unauthenticated POST of tools/list returns HTTP 401 with
+    WWW-Authenticate: Bearer resource_metadata="https://mcp.unbounce.com/.well-known/oauth-protected-resource",
+    scope="unbounce". There is no stdio package — the Claude/Codex plugin only wires
+    a client to the hosted HTTP endpoint, so this is a remote server, not local-stdio.
+server:
+  name: unbounce
+  transport: http
+  url: https://mcp.unbounce.com/mcp
+  vendor: Unbounce
+  official: true
+  plugin:
+    marketplace: unbounce/agent-plugins
+    name: unbounce-mcp
+    version: 1.0.320
+    license: MIT
+    install_claude_code:
+    - /plugin marketplace add unbounce/agent-plugins
+    - /plugin install unbounce-mcp@unbounce
+    codex_manifest: .agents/plugins/marketplace.json
+    clients:
+    - Claude Code
+    - Claude Cowork
+    - Claude desktop
+    - ChatGPT
+    - Codex
+availability:
+  plans:
+  - starter
+  - build
+  - experiment
+  - optimize
+  - concierge
+  - agency
+  note: >-
+    Unbounce states MCP access is included in all plans at no extra cost; the
+    pricing page lists "MCP server" as a Starter-plan feature.
+authorization:
+  scheme: oauth2
+  authorization_server: https://mcp.unbounce.com
+  authorization_endpoint: https://mcp.unbounce.com/authorize
+  token_endpoint: https://mcp.unbounce.com/token
+  registration_endpoint: https://mcp.unbounce.com/register
+  scopes_supported:
+  - unbounce
+  grant_types:
+  - authorization_code
+  - refresh_token
+  pkce: S256
+  dynamic_client_registration: true
+  protected_resource_metadata: https://mcp.unbounce.com/.well-known/oauth-protected-resource
+  well_known:
+  - well-known/unbounce-mcp-oauth-authorization-server.json
+  - well-known/unbounce-mcp-oauth-protected-resource.json
+tools_manifest:
+  file: unbounce-mcp-tools.json
+  source: https://unbounce.github.io/agent-plugins/unbounce-mcp/
+  method: searched
+  tool_count: 37
+  generated_at: '2026-08-11T19:16:34.021Z'
+  note: >-
+    Live tools/list is OAuth-gated (HTTP 401, invalid_token), so the tool set was taken
+    from Unbounce's own published tool reference, which carries each tool's name, title,
+    summary, description, params (name/type/required/allowed/description) and returns.
+    Parameter shapes below are therefore provider-published, not inferred; full JSON
+    Schema per tool still requires authenticated introspection.
+x-evidence:
+  fetched: '2026-08-13'
+  probes:
+  - url: https://mcp.unbounce.com/mcp
+    method: POST tools/list
+    http_status: 401
+    body: '{"error":"invalid_token","error_description":"missing bearer token"}'
+  - url: https://mcp.unbounce.com/.well-known/oauth-protected-resource
+    http_status: 200
+  - url: https://mcp.unbounce.com/.well-known/oauth-authorization-server
+    http_status: 200
+tools:
+- name: upload
+  title: "Upload files"
+  kind: write
+  topics: ["Workspace Files"]
+  description: "Upload local files (html/css/js + assets) to your server-side workspace without sending their bytes through this conversation."
+  params:
+  - name: files
+    type: array<object>
+    required: true
+- name: download
+  title: "Download files"
+  kind: read
+  topics: ["Workspace Files"]
+  description: "Download objects from your server-side workspace WITHOUT routing their bytes through this conversation."
+  params:
+  - name: refs
+    type: array<string>
+    required: true
+- name: upload_inband
+  title: "Upload files (inline content)"
+  kind: write
+  topics: ["Workspace Files"]
+  description: "Upload text files (HTML/CSS/JS) to your server-side workspace by sending each file's content inline as a tool argument."
+  params:
+  - name: files
+    type: array<object>
+    required: true
+- name: download_inband
+  title: "Download files (inline content)"
+  kind: read
+  topics: ["Workspace Files"]
+  description: "Read objects from your server-side workspace, returning their content INLINE in this tool's result."
+  params:
+  - name: refs
+    type: array<string>
+    required: true
+- name: whoami
+  title: "Who am I"
+  kind: read
+  topics: ["Identity & Accounts"]
+  description: "Return the authenticated Unbounce user (sub, id, email, first_name, last_name) by calling the Unbounce API on the caller's behalf."
+  params: []
+- name: list_accounts_and_clients
+  title: "List accounts and clients"
+  kind: read
+  topics: ["Identity & Accounts"]
+  description: "Return the Unbounce accounts the authenticated user can access, each with its clients."
+  params: []
+- name: get_account_plan
+  title: "Get an account's plan"
+  kind: read
+  topics: ["Identity & Accounts"]
+  description: "Return an Unbounce account's plan (name, billing interval) and subscription (renewal date, price with currency)."
+  params:
+  - name: accountUuid
+    type: string
+    required: false
+- name: list_client_pages
+  title: "List a client's pages"
+  kind: read
+  topics: ["Pages"]
+  description: "Return a client's landing pages, by `client_uuid` (from list_accounts_and_clients), with optional server-side filters and sort."
+  params:
+  - name: client_uuid
+    type: string
+    required: true
+  - name: name_contains
+    type: string
+    required: false
+  - name: published
+    type: boolean
+    required: false
+  - name: integration_errors
+    type: boolean
+    required: false
+  - name: routing_strategy
+    type: enum
+    required: false
+    allowed: ["smart_traffic", "weighted", "single"]
+  - name: order_by
+    type: object
+    required: false
+  - name: first
+    type: integer
+    required: false
+  - name: after
+    type: integer
+    required: false
+- name: list_page_variants
+  title: "List a page's variants"
+  kind: read
+  topics: ["Variants"]
+  description: "Return a page's variants (by `page_uuid` from list_client_pages), ordered champion, then other active variants, then discarded."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: include_discarded
+    type: boolean
+    required: false
+- name: get_variant
+  title: "Get a variant's editable content"
+  kind: read
+  topics: ["Variants"]
+  description: "Fetch an MCP-managed variant's current draft content \u2014 body HTML, CSS, and JavaScript \u2014 into your workspace so you can inspect or edit it and re-submit with update_variant_from_html."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: letter
+    type: string
+    required: true
+- name: get_layout_hints
+  title: "Analyze a variant's layout structure"
+  kind: read
+  topics: ["Variants"]
+  description: "Analyze an MCP-managed variant's rendered layout into a structural skeleton \u2014 top-to-bottom sections, each with `rows` of element ids clustered left-to-right \u2014 for rewriting an absolutely-positioned page as responsive HTML (flex/grid)."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: letter
+    type: string
+    required: true
+- name: get_page_stats
+  title: "Get a page's stats"
+  kind: read
+  topics: ["Stats"]
+  description: "Return a page's A/B stats \u2014 page-level totals plus a per-variant breakdown of `visits`, `visitors`, `conversions`, and `conversion_rate` \u2014 by `page_uuid` (from list_client_pages)."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: start_date
+    type: string
+    required: false
+  - name: end_date
+    type: string
+    required: false
+- name: list_page_groups
+  title: "List a client's page groups"
+  kind: read
+  topics: ["Page Groups"]
+  description: "List the page groups (named folders for organizing pages) a client uses, by `client_uuid` (from list_accounts_and_clients)."
+  params:
+  - name: client_uuid
+    type: string
+    required: true
+- name: list_client_domains
+  title: "List a client's domains"
+  kind: read
+  topics: ["Domains"]
+  description: "List the custom domains a client owns, by `client_uuid` (from list_accounts_and_clients)."
+  params:
+  - name: client_uuid
+    type: string
+    required: true
+- name: list_assets
+  title: "List a client's assets"
+  kind: read
+  topics: ["Assets"]
+  description: "Return a client's asset library \u2014 uploaded images and files \u2014 by the client's numeric `context` (from list_page_variants' `page.context`, or a clientId)."
+  params:
+  - name: context
+    type: string
+    required: true
+  - name: after
+    type: integer
+    required: false
+- name: create_page_from_html
+  title: "Create a page from HTML"
+  kind: write
+  topics: ["Pages"]
+  description: "Create a new, unpublished Unbounce landing page in a client from already-uploaded HTML/CSS/JS, as an MCP-managed page \u2014 it can only be edited afterwards with these MCP tools, never in the Unbounce builder, so don't suggest the builder to the user."
+  params:
+  - name: context
+    type: string
+    required: true
+  - name: html_ref
+    type: string
+    required: true
+  - name: css_refs
+    type: array<string>
+    required: false
+  - name: js_refs
+    type: array<string>
+    required: false
+  - name: page_name
+    type: string
+    required: false
+  - name: check_external_refs
+    type: enum
+    required: false
+    allowed: ["fatal", "warn", "off"]
+- name: create_variant_from_html
+  title: "Create a variant from HTML"
+  kind: write
+  topics: ["Variants"]
+  description: "Add a new variant to an existing Unbounce landing page (by `page_uuid` from list_client_pages) from already-uploaded HTML/CSS/JS, as an MCP-managed variant \u2014 editable afterwards with these MCP tools only, never in the Unbounce builder (don't suggest the builder to the user)."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: variant_name
+    type: string
+    required: true
+  - name: html_ref
+    type: string
+    required: true
+  - name: css_refs
+    type: array<string>
+    required: false
+  - name: js_refs
+    type: array<string>
+    required: false
+  - name: check_external_refs
+    type: enum
+    required: false
+    allowed: ["fatal", "warn", "off"]
+- name: create_variant_from_existing_variant
+  title: "Create an MCP variant from an existing Unbounce page"
+  kind: write
+  topics: ["Pages", "Variants"]
+  description: "Clone an existing Unbounce page (one built in the Unbounce builder, not through MCP) into an MCP-managed variant, as an exact copy \u2014 a one-way, one-time conversion (edit the result afterwards with these MCP tools only, never in the Unbounce builder)."
+  params:
+  - name: context
+    type: string
+    required: true
+  - name: source_variant_id
+    type: string
+    required: true
+  - name: target_page
+    type: string
+    required: false
+  - name: page_name
+    type: string
+    required: false
+- name: update_variant_from_html
+  title: "Update a variant from HTML"
+  kind: write
+  topics: ["Variants"]
+  description: "Full-replace an existing MCP-managed variant's body (`page_uuid` from list_client_pages, variant `letter` a/b/c from list_page_variants) with already-uploaded HTML/CSS/JS: pass the `upload://` references from `upload` as `html_ref` (body-content HTML), optional `css_refs` (stylesheet), and optional `js_refs` (custom-JavaScript elements)."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: letter
+    type: string
+    required: true
+  - name: html_ref
+    type: string
+    required: true
+  - name: css_refs
+    type: array<string>
+    required: false
+  - name: js_refs
+    type: array<string>
+    required: false
+  - name: check_external_refs
+    type: enum
+    required: false
+    allowed: ["fatal", "warn", "off"]
+- name: bulk_edit_variants
+  title: "Bulk-edit variants"
+  kind: write
+  topics: ["Variants"]
+  description: "Apply the same edit to many MCP-managed variants at once."
+  params:
+  - name: targets
+    type: array<object>
+    required: true
+  - name: ops
+    type: array<any>
+    required: true
+  - name: dry_run
+    type: boolean
+    required: false
+  - name: check_external_refs
+    type: enum
+    required: false
+    allowed: ["fatal", "warn", "off"]
+- name: publish_page
+  title: "Publish a page"
+  kind: write
+  topics: ["Publishing & Traffic"]
+  description: "Publish a landing page (by `page_uuid` from list_client_pages), making its current draft state live."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+- name: unpublish_page
+  title: "Unpublish a page"
+  kind: write
+  topics: ["Publishing & Traffic"]
+  description: "Unpublish an Unbounce landing page, by `page_uuid` from list_client_pages, taking it offline so its URL stops serving."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+- name: set_traffic
+  title: "Set a page's traffic routing"
+  kind: write
+  topics: ["Publishing & Traffic"]
+  description: "Stage how an Unbounce page splits visitors across its variants, by `page_uuid` from list_client_pages."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: strategy
+    type: enum
+    required: true
+    allowed: ["single", "weighted", "dta"]
+  - name: champion
+    type: string
+    required: false
+  - name: weights
+    type: object<integer>
+    required: false
+  - name: variants
+    type: array<string>
+    required: false
+- name: set_conversion_goals
+  title: "Set a page's conversion goals"
+  kind: write
+  topics: ["Variants"]
+  description: "Declare which parts of an MCP-managed page count as conversion goals: the form submission and/or clicks on chosen links (http(s) or tel:)."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: form_submission
+    type: boolean
+    required: true
+  - name: link_urls
+    type: array<string>
+    required: false
+- name: set_page_metadata
+  title: "Set a page's SEO & social metadata"
+  kind: write
+  topics: ["Pages"]
+  description: "Set a page's SEO head fields and Open Graph (social-card) data: the `<title>`, meta description, robots noindex, favicon, and og:* tags."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: letter
+    type: string
+    required: false
+  - name: title
+    type: any
+    required: false
+  - name: description
+    type: any
+    required: false
+  - name: keywords
+    type: any
+    required: false
+  - name: hide_from_search_engines
+    type: boolean
+    required: false
+  - name: favicon
+    type: any
+    required: false
+  - name: open_graph
+    type: any
+    required: false
+- name: set_page_url
+  title: "Set a page's URL"
+  kind: destructive
+  topics: ["Pages"]
+  description: "Set an Unbounce page's published URL \u2014 domain + path \u2014 by `page_uuid` from list_client_pages."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: path
+    type: string
+    required: true
+  - name: domain
+    type: string
+    required: false
+- name: manage_page_redirect
+  title: "Manage a page redirect"
+  kind: write
+  topics: ["Publishing & Traffic"]
+  description: "Attach, replace, or remove a page redirect (by `page_uuid` from list_client_pages) that forwards visitors from the page's own URL to another URL \u2014 the page stops serving its content, so this is how you retire or forward a published page without deleting it."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: action
+    type: enum
+    required: true
+    allowed: ["set", "remove"]
+  - name: redirect_url
+    type: string
+    required: false
+  - name: status_code
+    type: any
+    required: false
+- name: delete_page
+  title: "Delete a page"
+  kind: destructive
+  topics: ["Pages"]
+  description: "Soft-delete an Unbounce page by its `page_uuid` (from list_client_pages) \u2014 deletes one page per call."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+- name: set_variant_standing
+  title: "Set a variant's standing"
+  kind: write
+  topics: ["Variants"]
+  description: "Move one of an Unbounce page's variants through the A/B-test lifecycle, by `page_uuid` from list_client_pages and the variant `letter` a/b/c from list_page_variants."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: variant
+    type: string
+    required: true
+  - name: standing
+    type: enum
+    required: true
+    allowed: ["champion", "challenger", "discarded"]
+- name: set_variant_name
+  title: "Rename a variant"
+  kind: write
+  topics: ["Variants"]
+  description: "Rename one of an Unbounce page's variants, by `page_uuid` from list_client_pages and the variant `letter` a/b/c from list_page_variants."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: variant
+    type: string
+    required: true
+  - name: name
+    type: string
+    required: true
+- name: delete_variant
+  title: "Delete a variant"
+  kind: destructive
+  topics: ["Variants"]
+  description: "Permanently delete one of an Unbounce page's variants, by `page_uuid` (from list_client_pages) and variant `letter` a/b/c (from list_page_variants)."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+  - name: variant
+    type: string
+    required: true
+- name: manage_page_group
+  title: "Create, rename, or organize a page group"
+  kind: write
+  topics: ["Page Groups"]
+  description: "Create, rename, or change the membership of a client's page groups \u2014 named folders for organizing pages."
+  params:
+  - name: action
+    type: enum
+    required: true
+    allowed: ["create", "rename", "add_pages", "remove_pages"]
+  - name: client_uuid
+    type: string
+    required: false
+  - name: group_uuid
+    type: string
+    required: false
+  - name: name
+    type: string
+    required: false
+  - name: page_uuids
+    type: array<string>
+    required: false
+- name: delete_page_group
+  title: "Delete a page group"
+  kind: destructive
+  topics: ["Page Groups"]
+  description: "Delete a client's page group (a named folder), by `group_uuid` from list_page_groups."
+  params:
+  - name: group_uuid
+    type: string
+    required: true
+- name: reset_page_stats
+  title: "Reset a page's stats"
+  kind: destructive
+  topics: ["Stats"]
+  description: "Zero ALL of an Unbounce page's A/B stats \u2014 every variant at once \u2014 by `page_uuid` (from list_client_pages)."
+  params:
+  - name: page_uuid
+    type: string
+    required: true
+- name: version
+  title: "Server version"
+  kind: read
+  topics: ["Server"]
+  description: "Return which build of the unbounce-mcp server is running: the git commit SHA (full and short) the deployed artifact was released from, and the environment (integration, production, or local)."
+  params: []
+- name: recipes
+  title: "Recipes"
+  kind: read
+  topics: ["Server"]
+  description: "List common tasks you can accomplish with Unbounce MCP, each with an example prompt to ask for it."
+  params: []
+- name: submit_feedback
+  title: "Submit feedback"
+  kind: write
+  topics: ["Server"]
+  description: "Record feedback about the Unbounce MCP tools \u2014 a bug, praise, a feature request, confusion, or other \u2014 to the team's feedback store, without copy/paste."
+  params:
+  - name: type
+    type: enum
+    required: true
+    allowed: ["bug", "praise", "feature_request", "confusion", "other"]
+  - name: message
+    type: string
+    required: true
+  - name: context
+    type: any
+    required: false

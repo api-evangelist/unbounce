@@ -1,0 +1,57 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "description" : "Describes the main API entry points, supported formats and specification locations.",
+  "type" : "object",
+  "additionalProperties" : false,
+  "required" : [ "documentation", "related", "specifications", "supported_formats" ],
+  "properties" : {
+    "documentation" : {
+      "type" : "string",
+      "format" : "uri"
+    },
+    "related" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "required" : [ "accounts", "pages" ],
+      "properties" : {
+        "accounts" : {
+          "type" : "string",
+          "format" : "uri"
+        },
+        "pages" : {
+          "type" : "string",
+          "format" : "uri"
+        }
+      }
+    },
+    "specifications" : {
+      "type" : "array",
+      "minItems" : 1,
+      "uniqueItems" : true,
+      "items" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "required" : [ "href", "type", "version" ],
+        "properties" : {
+          "href" : {
+            "type" : "string",
+            "format" : "uri"
+          },
+          "type" : {
+            "type" : "string",
+            "enum" : [ "raml" ]
+          },
+          "version" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "supported_formats" : {
+      "type" : "array",
+      "item" : {
+        "type" : "string"
+      }
+    }
+  }
+}

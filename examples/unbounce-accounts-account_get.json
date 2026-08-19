@@ -1,0 +1,16 @@
+{
+    "created_at": "2015-12-16T00:34:47.000Z",
+    "id": "1456243",
+    "name": "Corporate Cole's Account",
+    "state": "active",
+    "uuid": "f888109f-7851-4252-ad51-c432e0f37056",
+    "metadata": {
+        "documentation": "https://developer.unbounce.com/api_reference/#id_accounts__account_id_",
+        "location": "https://api.unbounce.com/accounts/1456243",
+        "related": {
+            "accounts": "https://api.unbounce.com/accounts",
+            "pages": "https://api.unbounce.com/accounts/1456243/pages",
+            "sub_accounts": "https://api.unbounce.com/accounts/1456243/sub_accounts"
+        }
+    }
+}

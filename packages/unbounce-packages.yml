@@ -1,0 +1,62 @@
+generated: '2026-08-13'
+method: searched
+source: npm, PyPI, RubyGems and GitHub registry metadata endpoints + developer.unbounce.com
+note: >-
+  Unbounce publishes NO first-party client SDK in any package registry. Every client
+  library found is community-maintained and long stale — the newest first release of
+  any of them predates the current API version's own docs revision. The only
+  first-party distributable Unbounce ships for developers is the agent plugin below,
+  which is a plugin manifest pointing at the hosted MCP server, not a client library,
+  so no SDKs pointer is emitted for this provider.
+official_sdk_count: 0
+packages:
+- language: multi
+  registry: github
+  name: unbounce/agent-plugins
+  url: https://github.com/unbounce/agent-plugins
+  install: /plugin marketplace add unbounce/agent-plugins && /plugin install unbounce-mcp@unbounce
+  official: true
+  kind: agent-plugin
+  version: 1.0.320
+  published: '2026-08-11'
+  published_source: repo pushed_at 2026-08-11T20:00:27Z; plugin.json version 1.0.320
+  note: >-
+    First-party Claude Code / Cowork and ChatGPT / Codex plugin marketplace. Distributed
+    from GitHub only — no npm/PyPI package exists — so there is no registry metadata
+    endpoint; version read from plugins/unbounce-mcp/.claude-plugin/plugin.json and the
+    date from the repository's last push. Not a client SDK: it only wires an MCP client
+    to https://mcp.unbounce.com/mcp.
+- language: python
+  registry: pypi
+  name: unbounce-python-api
+  url: https://pypi.org/project/unbounce-python-api/
+  install: pip install unbounce-python-api
+  official: false
+  version: 1.3.5
+  published: '2023-05-23'
+  source_code: https://github.com/yoshiohasegawa/unbounce-python-api
+  note: Community wrapper. Last release 2023-05-23 — over three years stale.
+- language: ruby
+  registry: rubygems
+  name: unbounce_client
+  url: https://rubygems.org/gems/unbounce_client
+  install: gem install unbounce_client
+  official: false
+  version: 0.0.3
+  published: '2013-02-06'
+  source_code: https://github.com/GrooveStomp/unbounce_client
+  note: >-
+    Community wrapper by Aaron Oman, last released 2013 — predates API v0.4 entirely
+    and targets the retired v0.3 surface.
+- language: javascript
+  registry: npm
+  name: unbounce-api
+  url: https://github.com/2020/unbounce-api
+  install: null
+  official: false
+  version: null
+  published: null
+  note: >-
+    The project README documents `npm install unbounce-api`, but registry.npmjs.org
+    returns {"error":"Not found"} for that name — the package was never published (or
+    has been unpublished). Recorded as a checked gap, not a guess.

@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Unbounce REST Accounts PageGroups API",
+    "version": "0.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PageGroups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List page groups for a sub-account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/sub_accounts/:sub_account_id/page_groups",
+            "params": [
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List page groups for a sub-account"
+        },
+        {
+          "info": {
+            "name": "List pages in a page group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unbounce.com/page_groups/:page_group_id/pages",
+            "params": [
+              {
+                "name": "page_group_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List pages in a page group"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,96 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.unbounce.com/getting_started/ + live probes of mcp.unbounce.com
+derived_from:
+- raml/unbounce-api-v0.4.raml
+- well-known/unbounce-mcp-oauth-authorization-server.json
+- well-known/unbounce-mcp-oauth-protected-resource.json
+standards:
+- id: raml-0.8
+  conforms: true
+  evidence: >-
+    Provider-published RAML 0.8 document at https://developer.unbounce.com/raml/v0.4/api.raml,
+    with resourceTypes, traits, securitySchemes, JSON Schema includes and example includes.
+- id: json-schema-draft-04
+  conforms: true
+  evidence: '16 published schemas declaring "$schema": "http://json-schema.org/draft-04/schema#".'
+- id: openapi-3.1
+  conforms: false
+  evidence: >-
+    No OpenAPI is published by Unbounce; openapi/ in this repo is derived from the RAML and
+    the API reference, not harvested.
+- id: oauth2-rfc6749
+  conforms: true
+  evidence: >-
+    Authorization Code grant with refresh tokens on the REST API
+    (https://api.unbounce.com/oauth/authorize, /oauth/token) and on the MCP server.
+- id: oauth2-bearer-rfc6750
+  conforms: true
+  evidence: >-
+    Bearer access tokens (JWT) on the REST API; MCP returns a compliant
+    WWW-Authenticate Bearer challenge with resource_metadata and scope on 401.
+- id: oauth2-pkce-rfc7636
+  conforms: true
+  evidence: 'mcp.unbounce.com metadata: code_challenge_methods_supported: ["S256"].'
+  scope: MCP authorization server only
+- id: oauth2-authorization-server-metadata-rfc8414
+  conforms: true
+  evidence: https://mcp.unbounce.com/.well-known/oauth-authorization-server returns 200.
+  scope: MCP authorization server only
+- id: oauth2-protected-resource-metadata-rfc9728
+  conforms: true
+  evidence: https://mcp.unbounce.com/.well-known/oauth-protected-resource returns 200.
+  scope: MCP server only
+- id: oauth2-dynamic-client-registration-rfc7591
+  conforms: true
+  evidence: 'registration_endpoint: https://mcp.unbounce.com/register, token_endpoint_auth_methods_supported: ["none"], client_id_metadata_document_supported: true.'
+  scope: MCP authorization server only
+- id: http-basic-auth-rfc7617
+  conforms: true
+  evidence: API key sent as the HTTP Basic username with an empty password.
+- id: openid-connect
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every Unbounce host.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors are a proprietary JSON object ({message, documentation}); no
+    application/problem+json media type anywhere in the docs or RAML.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header support documented; no deprecation policy published.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on unbounce.com, api.unbounce.com, developer.unbounce.com, app.unbounce.com and mcp.unbounce.com.
+- id: ietf-ratelimit-headers
+  conforms: false
+  evidence: A numeric limit and a 429 status are documented, but no RateLimit-* or Retry-After headers.
+- id: model-context-protocol
+  conforms: true
+  evidence: >-
+    Official hosted MCP server at https://mcp.unbounce.com/mcp (streamable HTTP), 37
+    published tools, OAuth-protected per the MCP authorization spec.
+- id: json-api
+  conforms: false
+- id: odata
+  conforms: false
+- id: scim2
+  conforms: false
+- id: asyncapi
+  conforms: false
+  evidence: Webhooks are documented in the help center; no AsyncAPI document is published.
+- id: a2a
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json return 404 on every host.
+compliance:
+  published: true
+  page: https://unbounce.com/security/
+  certifications:
+  - PCI DSS
+  detail: >-
+    Unbounce's public security page states log data is retained for one year "as per PCI
+    compliance policies", that a Level 1 PCI-DSS compliant payment processor handles all
+    card data, and that service providers are expected to be PCI compliant before
+    onboarding. No SOC 2, ISO 27001, HIPAA or FedRAMP attestation is published, and there
+    is no trust portal.
+  see_also: security/unbounce-trust-center.yml

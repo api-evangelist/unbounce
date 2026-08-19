@@ -1,0 +1,96 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "description" : "Collection of form fields entities.",
+  "type" : "object",
+  "additionalProperties" : false,
+  "required" : [ "metadata" ],
+  "properties" : {
+    "metadata" : {
+      "title" : "Collection Metadata",
+      "type" : "object",
+      "allOf" : [ {
+        "title" : "Entity Metadata",
+        "type" : "object",
+        "required" : [ "location", "documentation" ],
+        "properties" : {
+          "location" : {
+            "type" : "string",
+            "format" : "uri"
+          },
+          "documentation" : {
+            "type" : "string",
+            "format" : "uri"
+          },
+          "related" : {
+            "type" : "object"
+          }
+        }
+      }, {
+        "type" : "object",
+        "required" : [ "count" ],
+        "properties" : {
+          "count" : {
+            "type" : "integer"
+          }
+        }
+      } ]
+    },
+    "page_groups" : {
+      "type" : "array",
+      "minItems" : 0,
+      "uniqueItems" : true,
+      "items" : {
+        "$schema" : "http://json-schema.org/draft-04/schema#",
+        "description" : "Representation of a page group entity. Pages in this group can be found by following the link found in the metadata object.",
+        "type" : "object",
+        "additionalProperties" : false,
+        "required" : [ "id", "metadata", "name" ],
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "metadata" : {
+            "type" : "object",
+            "allOf" : [ {
+              "title" : "Entity Metadata that can't be retrieved directly from a resource",
+              "type" : "object",
+              "required" : [ "documentation", "related" ],
+              "properties" : {
+                "documentation" : {
+                  "type" : "string",
+                  "format" : "uri"
+                },
+                "related" : {
+                  "type" : "object"
+                }
+              }
+            }, {
+              "type" : "object",
+              "required" : [ "related" ],
+              "properties" : {
+                "related" : {
+                  "type" : "object",
+                  "additionalProperties" : false,
+                  "required" : [ "pages", "sub_account" ],
+                  "properties" : {
+                    "pages" : {
+                      "type" : "string",
+                      "format" : "uri"
+                    },
+                    "sub_account" : {
+                      "type" : "string",
+                      "format" : "uri"
+                    }
+                  }
+                }
+              }
+            } ]
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}

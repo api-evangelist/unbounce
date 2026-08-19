@@ -1,0 +1,36 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.unbounce.com/getting_started/#Rate-Limiting
+limit_count: 1
+limits:
+- name: Global API rate limit
+  scope: per user account and per IP address
+  limit: 500
+  unit: requests
+  window: 1 minute
+  burst: null
+  applies_to: https://api.unbounce.com (REST API v0.4, all endpoints)
+  exhaustion_status: 429
+  quote: >-
+    "To make the API fast for everybody, we have a rate limit of 500 requests per minute
+    per user account and IP address. If you get a status code 429 on your response, it
+    means that you have exceeded this rate limit."
+response_headers:
+  documented: false
+  headers: []
+  note: >-
+    Unbounce documents the numeric limit and the 429 status but publishes NO rate-limit
+    response headers — no X-RateLimit-*, no RateLimit-*, no Retry-After. An agent
+    therefore has no runtime signal for remaining quota or reset time and can only
+    detect exhaustion after it happens, by observing a 429. Not verified against a live
+    response because every endpoint requires credentials.
+pagination_caps:
+  note: >-
+    Collection endpoints cap page size independently of the rate limit: `limit` has a
+    maximum of 1000 and a default of 50 (raml/unbounce-api-v0.4.raml, trait `paged`).
+mcp:
+  endpoint: https://mcp.unbounce.com/mcp
+  documented_limits: false
+  note: >-
+    Unbounce publishes no separate rate limit for the MCP server; MCP calls are served by
+    the same platform and no per-tool quota is documented.

@@ -1,0 +1,14 @@
+{
+    "id": "1225953",
+    "uuid": "9216b2e8-a57b-4b13-817b-24e53b55ac21",
+    "metadata": {
+        "documentation": "https://developer.unbounce.com/api_reference/#id_domains__domain_id_",
+        "location": "https://api.unbounce.com/domains/1225953",
+        "related": {
+            "account": "https://api.unbounce.com/accounts/1456243",
+            "pages": "https://api.unbounce.com/domains/1225953/pages",
+            "sub_account": "https://api.unbounce.com/sub_accounts/1552433"
+        }
+    },
+    "name": "forward.corporatecole.com"
+}

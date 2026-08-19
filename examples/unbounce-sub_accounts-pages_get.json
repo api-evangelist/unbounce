@@ -1,0 +1,57 @@
+{
+    "metadata": {
+        "count": 2,
+        "documentation": "https://developer.unbounce.com/api_reference/#id_pages",
+        "location": "https://api.unbounce.com/sub_accounts/1552433/pages",
+        "related": {
+            "sub_account": "https://api.unbounce.com/sub_accounts/1552433"
+        }
+    },
+    "pages": [
+        {
+            "created_at": "2015-12-16T00:59:29.000Z",
+            "domain": "unbouncepages.com",
+            "id": "a0a3ffdf-5965-4ef2-8414-8afcded91f70",
+            "integrations": [],
+            "integrations_count": 0,
+            "integrations_errors_count": 0,
+            "last_published_at": "2015-12-16T01:02:23.000Z",
+            "metadata": {
+                "documentation": "https://developer.unbounce.com/api_reference/#id_pages",
+                "location": "https://api.unbounce.com/pages/a0a3ffdf-5965-4ef2-8414-8afcded91f70",
+                "related": {
+                    "form_fields": "https://api.unbounce.com/pages/a0a3ffdf-5965-4ef2-8414-8afcded91f70/form_fields",
+                    "leads": "https://api.unbounce.com/pages/a0a3ffdf-5965-4ef2-8414-8afcded91f70/leads",
+                    "sub_account": "https://api.unbounce.com/sub_accounts/1552433"
+                }
+            },
+            "name": "Forward Marketing Solutions",
+            "state": "published",
+            "sub_account_id": "1552433",
+            "url": "http://unbouncepages.com/forward-marketing-solutions/",
+            "variants_count": 0
+        },
+        {
+            "created_at": "2015-12-16T01:01:28.000Z",
+            "domain": "forward.corporatecole.com",
+            "id": "26d2a10b-4b00-495d-b915-978dc5b3565f",
+            "integrations": [],
+            "integrations_count": 0,
+            "integrations_errors_count": 0,
+            "metadata": {
+                "documentation": "https://developer.unbounce.com/api_reference/#id_pages",
+                "location": "https://api.unbounce.com/pages/26d2a10b-4b00-495d-b915-978dc5b3565f",
+                "related": {
+                    "form_fields": "https://api.unbounce.com/pages/26d2a10b-4b00-495d-b915-978dc5b3565f/form_fields",
+                    "leads": "https://api.unbounce.com/pages/26d2a10b-4b00-495d-b915-978dc5b3565f/leads",
+                    "sub_account": "https://api.unbounce.com/sub_accounts/1552433"
+                }
+            },
+            "name": "Mastering Leather E-Book",
+            "state": "unpublished",
+            "sub_account_id": "1552433",
+            "url": "http://forward.corporatecole.com/mastering-leather-e-book/",
+            "variants_count": 0
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.unbounce.com/raml/v0.4/api.raml
+http_status: 200
+note: >-
+  Unbounce's own machine-readable API contract, saved verbatim. Discovered through the
+  developer portal's API Console (https://developer.unbounce.com/console.html), which
+  redirects to a RAML console loading this document — it is not linked as a spec anywhere
+  on the portal, and the API root's meta response advertises `specifications[].type: raml`.
+  Unbounce publishes NO OpenAPI; the openapi/ directory in this repo is API Evangelist's
+  translation of this document plus the API reference.
+files:
+- file: unbounce-api-v0.4.raml
+  spec: RAML 0.8
+  title: Unbounce API
+  version: v0.4
+  base_uri_declared: https://developer.unbounce.com
+  base_url_actual: https://api.unbounce.com
+  base_uri_note: >-
+    The RAML's baseUri and its oauth_2_0 settings name developer.unbounce.com, while the
+    prose docs and every worked example call api.unbounce.com. api.unbounce.com is the
+    live host; this is a known inconsistency in Unbounce's published spec, recorded rather
+    than silently corrected.
+  resource_types: [collection, countableCollection, pagedCollection, uncountedPagedCollection, member]
+  traits: [versioned, sortable_by_creation_date, countable, paged, subCollection, legacyPages]
+  security_schemes: [api_key, oauth_2_0]
+  includes:
+    schemas: 16
+    examples: 18
+    unresolved:
+    - definitions_v3.1.json
+  includes_saved_to:
+  - json-schema/
+  - examples/
