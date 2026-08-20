@@ -59,6 +59,12 @@ apis:
   tags:
   - Landing Pages
   - Leads
+  - Account
+  - Pages
+  - Domains
+  tags_raw:
+  - Landing Pages
+  - Leads
   - Accounts
   - Pages
   - Domains
@@ -104,6 +110,8 @@ apis:
   humanURL: https://developer.unbounce.com/getting_started/
   baseURL: https://api.unbounce.com
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -176,6 +184,8 @@ apis:
   humanURL: https://developer.unbounce.com/getting_started/
   baseURL: https://api.unbounce.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
