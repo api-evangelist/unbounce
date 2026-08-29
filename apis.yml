@@ -13,6 +13,19 @@ description: >-
   37 tools — the only public write surface for pages, variants, publishing and traffic —
   plus three Agent Skills shipped in its own agent-plugin marketplace.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: published
   onboarding: request-required
