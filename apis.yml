@@ -206,6 +206,9 @@ apis:
   - type: Overlay
     url: overlays/unbounce-users-api-overlay.yaml
 common:
+  - type: License
+    name: MIT
+    url: https://github.com/unbounce/agent-plugins/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/unbounce-agentic-access.yml
   - type: TrustCenter
