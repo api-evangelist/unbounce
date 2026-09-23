@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Unbounce REST Accounts Pages API
+  title: Unbounce REST Pages API
   version: 0.4.0
   summary: Programmatic access to Unbounce accounts, pages, leads, and domains.
   description: 'The Unbounce REST API provides programmatic access to accounts,
@@ -16,9 +16,7 @@ info:
 
     Endpoint surface and authentication confirmed against
 
-    https://developer.unbounce.com/api_reference/.
-
-    '
+    https://developer.unbounce.com/api_reference/.'
   contact:
     name: Unbounce Developers
     url: https://developer.unbounce.com/
@@ -141,13 +139,6 @@ components:
           type: string
         required:
           type: boolean
-    PageCollection:
-      type: object
-      properties:
-        pages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Page'
     Page:
       type: object
       properties:
@@ -166,9 +157,22 @@ components:
         created_at:
           type: string
           format: date-time
+    PageCollection:
+      type: object
+      properties:
+        pages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Page'
   parameters:
-    AccountId:
-      name: account_id
+    DomainId:
+      name: domain_id
+      in: path
+      required: true
+      schema:
+        type: string
+    PageId:
+      name: page_id
       in: path
       required: true
       schema:
@@ -179,14 +183,8 @@ components:
       required: true
       schema:
         type: string
-    DomainId:
-      name: domain_id
-      in: path
-      required: true
-      schema:
-        type: string
-    PageId:
-      name: page_id
+    AccountId:
+      name: account_id
       in: path
       required: true
       schema:
@@ -204,7 +202,4 @@ components:
           authorizationUrl: https://api.unbounce.com/oauth/authorize
           tokenUrl: https://api.unbounce.com/oauth/token
           scopes:
-            full: >-
-              Full access based on the authenticating user's own credentials.
-              Unbounce documents this as the only supported scope
-              (https://developer.unbounce.com/getting_started/#Authorization).
+            full: Full access based on the authenticating user's own credentials. Unbounce documents this as the only supported scope (https://developer.unbounce.com/getting_started/#Authorization).
