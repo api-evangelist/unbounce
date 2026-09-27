@@ -74,6 +74,20 @@ paths:
                 $ref: '#/components/schemas/PageCollection'
 components:
   schemas:
+    PageGroup:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    PageCollection:
+      type: object
+      properties:
+        pages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Page'
     Page:
       type: object
       properties:
@@ -92,20 +106,6 @@ components:
         created_at:
           type: string
           format: date-time
-    PageGroup:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-    PageCollection:
-      type: object
-      properties:
-        pages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Page'
   parameters:
     SubAccountId:
       name: sub_account_id

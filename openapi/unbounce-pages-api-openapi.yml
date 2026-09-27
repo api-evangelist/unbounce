@@ -127,6 +127,31 @@ paths:
                     items:
                       $ref: '#/components/schemas/FormField'
 components:
+  parameters:
+    AccountId:
+      name: account_id
+      in: path
+      required: true
+      schema:
+        type: string
+    DomainId:
+      name: domain_id
+      in: path
+      required: true
+      schema:
+        type: string
+    SubAccountId:
+      name: sub_account_id
+      in: path
+      required: true
+      schema:
+        type: string
+    PageId:
+      name: page_id
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
     FormField:
       type: object
@@ -164,31 +189,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Page'
-  parameters:
-    DomainId:
-      name: domain_id
-      in: path
-      required: true
-      schema:
-        type: string
-    PageId:
-      name: page_id
-      in: path
-      required: true
-      schema:
-        type: string
-    SubAccountId:
-      name: sub_account_id
-      in: path
-      required: true
-      schema:
-        type: string
-    AccountId:
-      name: account_id
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     apiKeyAuth:
       type: http

@@ -69,6 +69,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/Domain'
 components:
+  parameters:
+    DomainId:
+      name: domain_id
+      in: path
+      required: true
+      schema:
+        type: string
+    SubAccountId:
+      name: sub_account_id
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
     Domain:
       type: object
@@ -79,19 +92,6 @@ components:
           type: string
         state:
           type: string
-  parameters:
-    SubAccountId:
-      name: sub_account_id
-      in: path
-      required: true
-      schema:
-        type: string
-    DomainId:
-      name: domain_id
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     apiKeyAuth:
       type: http
