@@ -73,6 +73,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/PageCollection'
 components:
+  parameters:
+    SubAccountId:
+      name: sub_account_id
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
     PageGroup:
       type: object
@@ -81,13 +88,6 @@ components:
           type: string
         name:
           type: string
-    PageCollection:
-      type: object
-      properties:
-        pages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Page'
     Page:
       type: object
       properties:
@@ -106,13 +106,13 @@ components:
         created_at:
           type: string
           format: date-time
-  parameters:
-    SubAccountId:
-      name: sub_account_id
-      in: path
-      required: true
-      schema:
-        type: string
+    PageCollection:
+      type: object
+      properties:
+        pages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Page'
   securitySchemes:
     apiKeyAuth:
       type: http

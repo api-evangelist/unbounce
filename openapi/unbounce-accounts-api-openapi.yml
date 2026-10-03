@@ -102,22 +102,6 @@ paths:
                 $ref: '#/components/schemas/SubAccount'
 components:
   schemas:
-    AccountCollection:
-      type: object
-      properties:
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
-    SubAccount:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        account_id:
-          type: string
     Account:
       type: object
       properties:
@@ -135,15 +119,31 @@ components:
           type: string
         message:
           type: string
+    AccountCollection:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+    SubAccount:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        account_id:
+          type: string
   responses:
-    Unauthorized:
-      description: Authentication failed
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication failed
       content:
         application/json:
           schema:
