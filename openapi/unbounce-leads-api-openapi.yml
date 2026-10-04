@@ -126,19 +126,29 @@ paths:
                 $ref: '#/components/schemas/Lead'
 components:
   parameters:
-    LeadId:
-      name: lead_id
-      in: path
-      required: true
-      schema:
-        type: string
     PageId:
       name: page_id
       in: path
       required: true
       schema:
         type: string
+    LeadId:
+      name: lead_id
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
+    LeadDeletionRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        state:
+          type: string
+        requested_at:
+          type: string
+          format: date-time
     Lead:
       type: object
       properties:
@@ -150,16 +160,6 @@ components:
           type: object
           additionalProperties: true
         created_at:
-          type: string
-          format: date-time
-    LeadDeletionRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        state:
-          type: string
-        requested_at:
           type: string
           format: date-time
   securitySchemes:
