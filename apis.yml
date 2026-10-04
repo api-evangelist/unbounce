@@ -206,6 +206,9 @@ apis:
   - type: Overlay
     url: overlays/unbounce-users-api-overlay.yaml
 common:
+  - type: CapabilityMap
+    url: capabilities/unbounce-capability-edges.yml
+    name: Unbounce Business Capability Map
   - type: License
     name: MIT
     url: https://github.com/unbounce/agent-plugins/blob/main/LICENSE

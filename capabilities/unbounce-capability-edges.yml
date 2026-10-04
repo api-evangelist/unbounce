@@ -1,0 +1,37 @@
+slug: unbounce
+provider: Unbounce
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Pages
+  spec_file: unbounce-pages-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.78
+  evidence: GET /pages/{page_id} 'Retrieve a page'; GET /pages/{page_id}/form_fields 'Retrieve form fields
+    for a page'; schemas 'Page, FormField'
+  reason: These operations expose landing pages and their lead-capture form fields for a landing-page/conversion
+    platform — web marketing asset management rather than generic content or IT application management.
+    Digital Marketing Management is the best fit; Demand Generation is a plausible alternative, hence
+    not 0.9.
+- tag: Leads
+  spec_file: unbounce-leads-api-openapi.yml
+  capability_id: BC-400.40
+  capability_id_l1: BC-400
+  capability_name: Demand Generation Management
+  confidence: 0.75
+  evidence: '''List leads for a page'', ''Retrieve a lead'', schemas Lead, LeadDeletionRequest; vendor
+    ''capture, qualify, and route leads'' via landing pages'
+  reason: Leads captured from marketing landing pages are demand-generation output. Some ambiguity with
+    sales lead/pipeline management, but the context is landing-page conversion marketing.
