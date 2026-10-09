@@ -722,3 +722,18 @@ tools:
   - name: context
     type: any
     required: false
+rfc9728:
+  endpoint: https://mcp.unbounce.com/mcp
+  metadata_url: https://mcp.unbounce.com/.well-known/oauth-protected-resource
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://mcp.unbounce.com/mcp
+    authorization_servers:
+    - https://mcp.unbounce.com
+    scopes_supported:
+    - unbounce
+    bearer_methods_supported:
+    - header

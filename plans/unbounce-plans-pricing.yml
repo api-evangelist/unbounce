@@ -140,3 +140,47 @@ api_access:
   note: >-
     "API access is available on all Unbounce pricing plans." API keys must still be
     requested through an API Access form and enabled by Unbounce support.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - negotiated
+  - subscription
+  units: []
+  plans:
+  - name: Starter
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Build
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Experiment
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Optimize
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Concierge
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Agency
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
