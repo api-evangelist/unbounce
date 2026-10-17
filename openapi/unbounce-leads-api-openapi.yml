@@ -125,19 +125,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Lead'
 components:
-  parameters:
-    PageId:
-      name: page_id
-      in: path
-      required: true
-      schema:
-        type: string
-    LeadId:
-      name: lead_id
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
     LeadDeletionRequest:
       type: object
@@ -162,6 +149,19 @@ components:
         created_at:
           type: string
           format: date-time
+  parameters:
+    PageId:
+      name: page_id
+      in: path
+      required: true
+      schema:
+        type: string
+    LeadId:
+      name: lead_id
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: http

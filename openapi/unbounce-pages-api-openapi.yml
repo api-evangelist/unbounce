@@ -134,12 +134,6 @@ components:
       required: true
       schema:
         type: string
-    AccountId:
-      name: account_id
-      in: path
-      required: true
-      schema:
-        type: string
     SubAccountId:
       name: sub_account_id
       in: path
@@ -152,7 +146,20 @@ components:
       required: true
       schema:
         type: string
+    AccountId:
+      name: account_id
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
+    PageCollection:
+      type: object
+      properties:
+        pages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Page'
     FormField:
       type: object
       properties:
@@ -164,13 +171,6 @@ components:
           type: string
         required:
           type: boolean
-    PageCollection:
-      type: object
-      properties:
-        pages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Page'
     Page:
       type: object
       properties:
